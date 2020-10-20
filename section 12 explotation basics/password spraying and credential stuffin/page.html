@@ -1,0 +1,73 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Password Spraying and Credential Stuffing</title>
+</head><body><img src="image.png"/><br/>
+<br/>
+<img height="402" src="image 2.png" width="450"/><br/>
+<br/>
+<span style="font-size: 11pt"><span style="color: #ff0000">what is the difference between a brute force attack and password sprayin/credential stuffing? <br/>
+<br/>
+<br/>
+</span></span>Password spraying and credential stuffing are a bit more concise in their nature due to using credentials that have been included in a breach at some point, as opposed to brute forcing which is essentially blind guessing until something interesting happens.<br/>
+<br/>
+<br/>
+-------------------------------------------------------------------------------------<br/>
+<br/>
+Setting up Foxy Proxy <br/>
+<br/>
+load foxy proxy then click add<br/>
+<br/>
+<img height="324" src="image 3.png" width="450"/><br/>
+<br/>
+<img height="234" src="image 4.png" width="400"/><br/>
+now you can turn on burp suite <br/>
+<br/>
+<br/>
+Turn off intercept So go to tesla.com and go to sign in page.<br/>
+<br/>
+Turn on intercept and then write some fake email and password.<br/>
+<br/>
+this will be burp suite output.<br/>
+<img height="555" src="image 5.png" width="750"/><br/>
+right click - send to intruder - go intruder tab - go positions - click clear - highlight username and passwords sections - click add <br/>
+<br/>
+<img height="395" src="image 6.png" width="700"/><br/>
+<br/>
+choose pitchfork as a attack type (sniper uses one parameter) then go to payloads paste tesla-user.txt over simple list and then change to payload set as 2 and paste tesla-password.txt (payload 1 is first highlighted in positions 2 is second highlighted)<br/>
+<br/>
+<img height="386" src="image 7.png" width="750"/><br/>
+<br/>
+and then START ATTACK<br/>
+<br/>
+<img height="480" src="image 8.png" width="700"/><br/>
+<br/>
+!!What we're looking for is a status code change of some sort. Maybe we see two hundreds here and we want like a 3 0 one which means a redirect  we see a significant change in length.<br/>
+<br/>
+<img height="371" src="image 9.png" width="650"/><br/>
+!!<span style="font-size: 12pt"><span style="color: #ff0000">is there any an easy way to verify whether sign in?<br/>
+</span></span><span style="font-size: 12pt"><span style="color: #ff0000"><br/>
+Yes!<br/>
+<br/>
+<img height="470" src="image 10.png" width="750"/><br/>
+<br/>
+<img src="image 14.png"/><br/>
+<img src="image 11.png"/><br/>
+<br/>
+PASSWORD SPRAYING<br/>
+</span></span>Password spraying is the art of using known user names without a known password.<br/>
+<br/>
+now we'll select just username line and we'll throw usernames or emails at it. it's like credential stuffing, only difference is that in password spraying we are trying a possibly and common password over leaked usernames or emails.<br/>
+<br/>
+<img height="310" src="image 12.png" width="600"/><br/>
+The only downside to this is you are most likely attacking Active Directory accounts.<br/>
+ When you're attacking active directory accounts you want to be very careful because you could lock them out without even trying.<br/>
+So if you're doing a pen test the best idea is to ask before you attack say hey how many attempts do you have unsuccessfully before I log out happens or a lockout happens. !!Because the worst thing you want to do is fire off ten of these in a row, lockout a bunch of users and cause of denial service. that is very very possible and very very easy to do so make sure you're not just firing these willy nilly that you have a good idea of the password policy the lockout policy etc. that will really help you when you do these attacks but you just want to do these kind of one or two at a time wait a few hours fire another one or two at a time and you should be good to go OK.<br/>
+<br/>
+we should change attack type as sniper.<br/>
+<img height="307" src="image 13.png" width="600"/><br/>
+<br/>
+there will be no more payload btw just 1.<br/>
+<img height="476" src="image 15.png" width="750"/><br/>
+<span style="font-size: 13pt">!!this is something you will come up in an interview as well so make sure you're very aware of it.<br/>
+</span></body></html>

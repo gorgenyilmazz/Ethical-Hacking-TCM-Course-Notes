@@ -1,0 +1,189 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Walkthrough - Jerry</title>
+</head><body>we're going to learn that default credentials how cause very bad things.<br/>
+<br/>
+<img src="image.png"/><br/>
+<br/>
+here our nmap scan and one port open this is great. Because we can focus just that port. Now there are some situations where there might be hit ports like <b>port knocking</b>bbut for that easy box that's not the case.<br/>
+<br/>
+we're seeing some information in scanning. Like Apache/Tomcat 7.0.88 this is perhaps a default web page. And if it's not a default web page why they disclosing their server headers with service information. <b>This is a no no or a finding.<br/>
+</b><b><br/>
+Firstly let's go to the default web page and see what are there<br/>
+<br/>
+</b><img height="425" src="image 2.png" width="750"/><br/>
+and we're brought to this apache tomcat page. This is not a good page should be leaving open and even if it's on the internal network. But if this is on the externals is bad and you'll find this on external networks.<br/>
+People will tuck it away under like /manager or /admin or whatever because of this red signed area that is what gets you into the admin panels. So you do see this a lot. <br/>
+<br/>
+And if there is any sort of guest or default credentials on this. it's game over.<br/>
+So this would be a finding oo depending on what you're doing and if this is external. This is like hey why do you have this up. You know you should put this behind a VPN so that only you can access it when you're on the internal side. if it's On the internal side who has access to this page? Why do they have access to this page? You don't want this easily accessible by any means.<br/>
+<br/>
+<br/>
+Now we can log in with the manager app and do some malicious things. But before we can log in here one of the first things I do when I see a login page like this with the service version is we're going to go to google and say &quot;tomcat default credentials&quot;<br/>
+<br/>
+<img height="598" src="image 3.png" width="600"/><br/>
+(https://github.com/netbiosX/Default-Credentials/blob/master/Apache-Tomcat-Default-Passwords.mdown)<br/>
+we'll take these credentials and do brute forcing. There are some tools out there for that but we'll do in manual way with these credentials. <br/>
+<br/>
+we're going to do settings to intercept traffic as we've done before<br/>
+firefox &gt; preferences &gt; Network Proxy settings &gt; Manual proxy configuration &gt; tick use this proxy for all protocols(127.0.0.1:8080) that's it. and then go to 10.10.10.95:8080 webpsge<br/>
+<br/>
+<img src="image 4.png"/><br/>
+now we can modify this request to do some malicious things.<br/>
+let's forward(because burpsuite intercept request so with that we free the request ) and go to manager app in that page.<br/>
+<br/>
+<img height="625" src="image 5.png" width="700"/><br/>
+let's forward and see what's happen<br/>
+<br/>
+<img height="348" src="image 6.png" width="350"/><br/>
+<br/>
+<br/>
+let's try tomcat tomcat<br/>
+<br/>
+<img src="image 7.png"/><br/>
+<br/>
+<br/>
+one option we can do is that right click to that and send decoder and this is base64 because typically there is equal signs at the end of it.<br/>
+<br/>
+<img src="image 8.png"/><br/>
+<br/>
+decode as base64. <br/>
+go forward and look what happenns it look like didn't work.<br/>
+Ok let's do some different things username: manager pass: tomcat and say OK and in the burp suite send to this repeater. And number two send this to intruder.<br/>
+<br/>
+repeater just repeats the requests. in repeater instead of sending it in real time with a proxy we can modify the requests and see the corresponding responses immediately.<br/>
+<img src="image 9.png"/><br/>
+if we send this we're seeing 401 unauthorized. that's credentials are not correct so let's do some brute force.<br/>
+we'll get these credentials in the github link and paste a file tomcat.txt or along this line. And we must edit this file as base64 format.<br/>
+<br/>
+<img height="295" src="image 8.png" width="550"/><br/>
+like in here username:password format<br/>
+<br/>
+<img src="image 10.png"/><br/>
+press ctrl+h <br/>
+<img height="398" src="image 11.png" width="500"/><br/>
+we've copied in between space<br/>
+<br/>
+<img height="356" src="image 12.png" width="400"/><br/>
+we've saved this and exited. We're gonna do some bash scripting.<br/>
+<br/>
+we've to encode these credentials as base64 and for that we're going to write a bash script. Just one credentials this would be like that;<br/>
+<br/>
+<img src="image 13.png"/><br/>
+<br/>
+<img height="205" src="image 14.png" width="650"/><br/>
+<br/>
+this is going to take all credentials in the tomcat.txt one by one and encode as base64.<br/>
+<img src="image 15.png"/><br/>
+<br/>
+<br/>
+let's copy these and paste in here;<br/>
+<br/>
+<br/>
+<img height="612" src="image 16.png" width="600"/><br/>
+sniper attack means that it'll fire off just one payload each time so for 25 credential it'll fire off 25 payload. After press add for highlighting area <img height="709" src="image 17.png" width="700"/><br/>
+we're doing this as like above.<br/>
+And additionally we need to take off this url-encode these characters section. Because it is going to attempt url-encode these characters and we have = in base64.<br/>
+We started attack and we got it!<br/>
+<br/>
+<img src="image 18.png"/><br/>
+<br/>
+status 200 means OK. But in long lists it is better to grep some error or like this. So for that <img height="479" src="image 19.png" width="650"/><br/>
+<img height="407" src="image 20.png" width="400"/><br/>
+we're doing these but there is caveat about why we are doing these. Well because of that sometimes our status code might be different like 302 which is redirect page status code so may be <a href="https://tureng.com/tr/turkce-ingilizce/challenging"><br/>
+</a>challenging trying to find these status codes or something.<br/>
+<br/>
+how do we find out which credential is that? right click and send to decoder and decoders as base64 bla bla <br/>
+<br/>
+<img src="image 21.png"/><br/>
+with that credential now we are inside the application itself<br/>
+<br/>
+<img src="image 22.png"/><br/>
+<br/>
+<img src="image 23.png"/><br/>
+<br/>
+in here we've WAR file section <br/>
+<br/>
+<span style="font-size: 14pt">---------------------------What is Java Servlet------------------------------</span><br/>
+<br/>
+<br/>
+<div style="text-align: left"><span style="font-family: Arial"><span style="font-size: 10pt">A servlet is simply a class which responds to a particular type of network request - most commonly an HTTP request. Basically servlets are usually used to implement web applications - but there are also various frameworks which operate on top of servlets (e.g. Struts) to give a higher-level abstraction than the &quot;here's an HTTP request, write to this HTTP response&quot; level which servlets provide.<br/>
+</span></span></div><span style="font-size: 10pt"><br/>
+</span><div style="text-align: left"><span style="font-family: Arial"><span style="font-size: 10pt">Servlets run in a <i>servlet container</i> which handles the networking side (e.g. parsing an HTTP request, connection handling etc). One of the best-known open source servlet containers is <a href="http://tomcat.apache.org/">Tomcat</a>.</span><span style="font-size: 15pt"><br/>
+</span></span></div> <br/>
+<br/>
+(https://stackoverflow.com/questions/7213541/what-is-java-servlet)<br/>
+<span style="font-size: 13pt">---------------------------------------------------------------------------<br/>
+<br/>
+--------------------WAR Files------------------------------<br/>
+</span><br/>
+<b>WAR</b>. Is the extension of a file that packages a web application directory hierarchy in ZIP format and is short for Web Archive. Java web applications are usually packaged as WAR files for deployment. These files can be created on the command line or with an IDE like Eclipse.<br/>
+<br/>
+After deploying our WAR file, Tomcat unpacks it and stores all project files in the <span style="font-size: 10pt">webapps directory </span> in a new directory named after the project.<span style="font-size: 13pt"><br/>
+</span><span style="font-size: 13pt"><br/>
+</span><span style="font-size: 12pt">------------------------------------------------------------------------------------</span><br/>
+<br/>
+we can upload some malicious war file to that section and get reverse shell<br/>
+<br/>
+let's go to google and say war file reverse shell and see what is coming. <br/>
+<br/>
+<img src="image 24.png"/><br/>
+<br/>
+<br/>
+<br/>
+<img src="image 25.png"/><br/>
+<br/>
+we generate a payload now we need to listen 4444 port in order to gain reverse shell.<br/>
+<br/>
+<br/>
+<img height="708" src="image 26.png" width="700"/><br/>
+<br/>
+<br/>
+we need to click /shell in order to execute the war file.<br/>
+<br/>
+<img height="664" src="image 27.png" width="750"/><br/>
+ANNND BOOM WE GET A SHELL<br/>
+!!IN MY FIRST ATTEMPT I COULD'NT GET A SHELL BECAUSE MY BURPSUITE IS RUNNING AND THEN I TURNED OFF THAT IT IS WORKED. <br/>
+<br/>
+<br/>
+<br/>
+<img src="image 28.png"/><br/>
+we can look at this kind of things. These is not be useful in a hackthebox environment but if you're doing like a lab environment super useful to see who it's talking to. Same thing with netstat and route print commands.<br/>
+<br/>
+But despite of all of these we are still in a shell with limited flexibility let's improve our shell.<br/>
+For that we want to create a new reverse shell to this machine.<br/>
+<br/>
+<img src="image 29.png"/><br/>
+this is x64 architecture so we know that.<br/>
+<br/>
+<img src="image 30.png"/><br/>
+<br/>
+<br/>
+<br/>
+<img src="image 31.png"/><br/>
+<br/>
+Ok how do we get a file onto windows machine. Well first and foremost we need to host a webserver the easiest way to host a webserver is with python.<br/>
+<br/>
+<img src="image 32.png"/><br/>
+<br/>
+<img src="image 33.png"/><br/>
+<br/>
+i can access all the files in my root directory.<br/>
+when we talk about collecting or transporting files on windows there is a tool that's on there. Now it's starting to get picked up by a defender but for a long time it didn't. So on assessments it still works fairly well.<br/>
+What we can do here is a built in tool. Now everybody knows about wget for Linux.<br/>
+This is Heath's idea of the quick and dirty way of doing like a wget for Windows.<br/>
+That's not very commonly well known.<br/>
+<br/>
+<img src="image 34.png"/><br/>
+<img src="image 35.png"/><br/>
+<br/>
+<img src="image 36.png"/><br/>
+<br/>
+<img src="image 37.png"/><br/>
+<br/>
+Booooom we improved our shell.<br/>
+<br/>
+!!!!!<b>in the real world this is going to be picked up fairly fairly easily.<br/>
+</b><b><br/>
+</b>But you know we could obfuscate this more but in a situation like this or even a bad environment where they don't have good security system something like this is not going to get picked up at all.</body></html>

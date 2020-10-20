@@ -1,0 +1,150 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Walkthrough - Devel</title>
+</head><body>we're going to see common port combination something along the lines of port 21 and port 80 you see that a lot where you have a website and you have port 21 or you might have port 22 and port 80.<br/>
+!!And you have to leverage and exploit somewhere in order to get somewhere else.<br/>
+!How can we leverage FTP if we have anonymous access and howcan we enumerate what is in front of us.<br/>
+<br/>
+<img src="image.png"/><br/>
+on an assesment http-server-header: Microsoft-IIS/7.5 and http-title are a very low finding but still this is a finding and information for attacker.<br/>
+!!heath adams &quot;just from experience that we're probably looking at a default web page if the title is going to be IIS7&quot;<br/>
+There is ftp anonymous login and there are files in it. They look like a web root directory (look at iisstart.htm) <br/>
+<br/>
+!!!!Another finding is anonymous ftp login. why we are allowing login anonymous people.<br/>
+First thing first if there is a web page so why we don't go the web page may be we'll find useful information.<br/>
+<img height="355" src="image 2.png" width="600"/><br/>
+during pentesting we come across these default web pages a lot. Now this signifies one of two things;<br/>
+1)they have a web site out in the open and they have it running on the backend somewhere at a different directory.<br/>
+!! there is probably a directory to this web page they're running and it may resolve to a domain name.<br/>
+Let's just say Google it may be like dev.google.com is where they're running on this web server But when you just navigate to port 80 or port 443 the default web page is still here <br/>
+!!!this is a finding on a pentest as well, this signifies that there is poor hygiene.<br/>
+<br/>
+!!heath &quot;So my first thought in this instance is i'm going to look for extra directories and my favorite tool for that is called dirbuster.<br/>
+<br/>
+Another tools for directory busting : gobuster , dirb.<br/>
+<br/>
+<img height="494" src="image 3.png" width="600"/><br/>
+we're against windows machine as target machine so instead of searching php files we search asm,asmx,asp,aspx files. If that is apache server then we can search for php files.<br/>
+<img src="image 4.png"/><br/>
+we can add more file types for more informartion but as we write more file type, this is gonna take more time.<br/>
+This is for the sake of seeing actual methodology but we won't do this. Instead we'll look at ftp.<br/>
+So let's look at whether we can put file to ftp and whether we can execute and reach out from browser.<br/>
+<br/>
+<img height="429" src="image 5.png" width="650"/><br/>
+okay this is source code of the page and as we can see there is a file which is in ftp server and at the same time this file is being used in the page. And we deduce that maybe we can put file into the ftp and we can execute them. Let's try that.<br/>
+<img height="336" src="image 6.png" width="550"/><br/>
+we can connect just like that. And as you can see commands are like linux commands.<br/>
+<img src="image 7.png"/><br/>
+<br/>
+<img src="image 8.png"/><br/>
+!!!!We must enter &quot;anonymous&quot; to username and password field when is being said &quot;Anonymous login allowed&quot; they literally mean it.<br/>
+<br/>
+!!!!when we want to put file into the ftp server we must be in the same directory with the file. In that case i saved in Desktop directory.<br/>
+<br/>
+<img src="image 9.png"/><br/>
+<br/>
+now we can see the file. Let's look whether we can reach out that file or not.<br/>
+<img height="664" src="image 10.png" width="650"/><br/>
+this seems like disrupting but eventually we can reach out and execute the file where in ftp server. So why we don't put some malicious file and execute it? We're going to do that right now.<br/>
+<br/>
+Now we can use a tool called MSFVENOM for that purpose.<br/>
+And we can look at cheatsheet about that tool.<br/>
+<img height="518" src="image 11.png" width="550"/><br/>
+<img height="413" src="image 12.png" width="700"/><br/>
+<br/>
+(https://netsec.ws/?p=331)<br/>
+<br/>
+we're looking for ASP.<br/>
+<img height="309" src="image 13.png" width="750"/><br/>
+<br/>
+Because we know that they run asp, aspx as an IIS server.<br/>
+We're going to generate a payload with that. <br/>
+This payload will say to target machine &quot;hey use me and connect at my listening host(we) and my listening port (LPORT) &lt;this is a reverse shell btw&gt;<br/>
+<br/>
+<img height="116" src="image 14.png" width="650"/><br/>
+left of the less-than sign creates shellcode and on the right of that sign we write that into the ex.aspx file.<br/>
+<br/>
+<img height="235" src="image 15.png" width="600"/><br/>
+<br/>
+<br/>
+this is putted to desktop(where we are.)<br/>
+So how to we use that? <br/>
+<img height="290" src="image 16.png" width="500"/><br/>
+<br/>
+<br/>
+<img src="image 17.png"/><br/>
+this is just a listener.<br/>
+<br/>
+<img src="image 18.png"/><br/>
+<img src="image 19.png"/><br/>
+so if you va issue related to execute or load the payload into ftp you can try to switch binary from ASCII mode.<br/>
+<br/>
+So now we have a listener going and we putted the file into ftp now we can execute trying to go to 10.10.10.5/ex.aspx lets try this.<br/>
+<br/>
+<img src="image 20.png"/><br/>
+<br/>
+so when we enter that address we gained shell but we're not authority in system as we can see in server username.<br/>
+Now in this case there is a tool called getsystem we can try that.<br/>
+<img src="image 21.png"/><br/>
+it didn't work okay. <br/>
+!!In a rare occasion that actually can crash a machine if you're doing on a pentest be very careful.<br/>
+<br/>
+There are post modules in meterpreter.<br/>
+<br/>
+<img src="image 22.png"/><br/>
+<br/>
+so all i need is a session running and then this'll do some enumeration for us. <span style="color: #ff0000">This is post exploitation enumeration.<br/>
+</span><span style="color: #ff0000"><br/>
+</span><img src="image 23.png"/><span style="color: #ff0000"><br/>
+</span><span style="color: #ff0000"><br/>
+</span><img src="image 24.png"/><br/>
+<br/>
+And what this is going to do is this is going to look through all the x86 exploits that it knows of that our privilege escalation exploits it's going to compare what's going on in the Windows system and say hey yeah That might be good for this or no that's not going to work.<br/>
+<br/>
+Let's use second kitrap0d is pretty friendly.<br/>
+<br/>
+<img src="image 25.png"/><br/>
+<br/>
+<span style="color: #ff0000"><br/>
+</span><img src="image 26.png"/><br/>
+we launched a process but we did not get a reverse shell back But now there are payload options in options.<br/>
+Because look at the lhost it tend to be our ethernet interface. You could just say set lhosts bla bla without seeing the options screen if you know this issue. <br/>
+<br/>
+<br/>
+<img src="image 28.png"/><br/>
+<span style="color: #ff0000">lport must be same with the listener port (multi/handler)<br/>
+</span><span style="color: #000000">we can list all payloads with msfvenom -l payloads that<br/>
+<br/>
+</span><span style="font-size: 14pt"><span style="color: #ff0000">let's try without metasploit.<br/>
+<br/>
+<img src="image 27.png"/><br/>
+<br/>
+</span></span><span style="color: #000000"><br/>
+we're doing these operations in order to gain a webshell. From now on we're going to reach out that file via browser.<br/>
+<img src="image 29.png"/><br/>
+</span><span style="color: #000000">great! now we've a webshell. </span>. Let’s run a quick ping test to make sure we’re able to communicate from this system to ours.<br/>
+<img src="image 30.png"/><br/>
+<span style="color: #000000"><br/>
+</span>(https://infinitelogins.com/2020/01/20/hack-the-box-write-up-devel-without-metasploit/)<br/>
+<br/>
+If you have a Unix or Unix-like (Linux, Mac OS) operating system, you can use<span style="font-size: 13pt">tcpdump</span>to examine network traffic. The tcpdump program is a command line utility that can be installed for free.<br/>
+<br/>
+<img src="image 31.png"/><br/>
+<br/>
+we've connection between our box and webserver.<br/>
+<br/>
+The output confirms that our box received a ping request from the webserver — great! So we have command execution and can communicate to/from the box, but how do we turn this into an interactive reverse shell?<br/>
+<br/>
+<span style="font-size: 12pt">Turning Command Execution to Reverse Shell <br/>
+<br/>
+<img height="584" src="image 32.png" width="550"/><br/>
+<br/>
+<img src="image 33.png"/><br/>
+<img src="image 35.png"/><br/>
+<br/>
+<img height="551" src="image 34.png" width="550"/><br/>
+let's get some information in order to gain full authority on the system.<br/>
+<br/>
+https://medium.com/devel-htb-walkthrough/devel-htb-walkthrough-fd2fc174490<br/>
+</span></body></html>

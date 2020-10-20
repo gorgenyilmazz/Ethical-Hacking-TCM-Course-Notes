@@ -1,0 +1,72 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Enumerating SMB</title>
+</head><body>We're gonna focus over to SMB on port 139<br/>
+SMB is a file share. <br/>
+<br/>
+in nmap scanning there is no enough and exact version information so we need to establish a connection to kioptrix machine<br/>
+<br/>
+so first time we are going to use metasploit.<br/>
+<br/>
+<img height="551" src="image.png" width="500"/><br/>
+<br/>
+<img height="811" src="image 2.png" width="800"/><br/>
+<br/>
+<br/>
+<br/>
+there is a long list in here so we need to distinct this things. So in first section we can see the type of module which is auxiliary module and that is the relevant to scanning and enumeration. And in last section we see the type of module in a privatised way.<br/>
+<br/>
+<img src="image 3.png"/><br/>
+<br/>
+we want to use this module and lets say info and see what we have<br/>
+<br/>
+<br/>
+<img height="429" src="image 4.png" width="650"/><br/>
+<br/>
+<br/>
+we can see the options we have.<br/>
+<br/>
+<img src="image 5.png"/><br/>
+<br/>
+RHOSTS stands for remote hosts and these are always victims. These are the target address. RHOSTS &gt; we are attacking only one machine <br/>
+RHOSTS+ &gt; more than one machine<br/>
+<br/>
+<img src="image 6.png"/><br/>
+<br/>
+so now we have alittle bit information. Knowing samba 2.2.1a is very spesific and it is going to help us. We can note that.<br/>
+<br/>
+WHAT IS GOING TO SET YOU APART OTHER HACKERS OR OTHER PEOPLE EVEN TRYING TO GET INTO THE FIELD IS YOUR ABILITY TO INFORMATION GATHERING AND ENUMERATE.<br/>
+<br/>
+We are going to meet another tool which is smbclient. Smbclient is a tool that is going to attempt to connect to the fileshare that is out there. Now if we have the ability to connect to the file share with anonymous access what that will do is we can get in there and we could potentially see files. Now these files might give us an inkling of what's going on the network or they may even be valuable to us.<br/>
+<br/>
+YOU NEVER KNOW WHAT YOU'RE GONNA FIND UNTIL YOU ACTUALLY LOOK.<br/>
+<br/>
+<img src="image 7.png"/><br/>
+<br/>
+GO AHEAD AND PRESS ENTER <br/>
+<br/>
+<img src="image 8.png"/><br/>
+<br/>
+so we did list out a fileshare.<br/>
+<br/>
+In this here there are two sharename and ADMIN$ may be very valuable to us. Let's try to connect ADMIN$ file share.<br/>
+<br/>
+<img src="image 9.png"/><br/>
+<br/>
+we are being unsuccessful. <br/>
+Now we can try to connect the IPC$ sharename just a proof of concept.<br/>
+<br/>
+<img src="image 10.png"/><br/>
+<br/>
+now we have access<br/>
+<br/>
+<img src="image 11.png"/><br/>
+<br/>
+ACCESS_DENIED<br/>
+<br/>
+So this is what we call a dead end. We couldn't gather extra information thus we have one thing in here and it is that.<br/>
+<br/>
+<br/>
+<img height="274" src="image 12.png" width="700"/><br/>
+</body></html>

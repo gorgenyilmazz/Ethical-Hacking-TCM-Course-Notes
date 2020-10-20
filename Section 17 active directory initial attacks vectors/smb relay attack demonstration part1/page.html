@@ -1,0 +1,31 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>SMB Relay Attack Demonstration Part1</title>
+</head><body>now that we have targets.txt file let's start the attack<br/>
+<br/>
+firstly we need to do some configurations on responder and then fire it up.<br/>
+<br/>
+<img src="image.png"/><br/>
+<br/>
+now we can fire responder up<br/>
+<br/>
+<br/>
+<img src="image 2.png"/><br/>
+<br/>
+it should look like this. we are listening for events now.<br/>
+<br/>
+let's fire ntlmrelax.py up for smb relay part.<br/>
+<br/>
+<img src="image 3.png"/><br/>
+<br/>
+let's go to the frank castle machine and trigger llmnr by writing wrong host.<br/>
+<br/>
+<img src="image 4.png"/><br/>
+<br/>
+now that we've triggered. let's look at ntlmxrelay <br/>
+<img src="image 5.png"/><br/>
+as we can see we got connecttion from fcastle machine and attacked peterparker machine(192.168.131.138) and we succeeded and we dumped hashes. Why do we succed on peterparker machine remember because frankcastle is a local admin on both machines. Now we can try to crack them and we can pass around these hashes. <br/>
+<br/>
+This is very common occurences especially if the environment has a lot of local admins and you have a lot of local admins on the same machine.<br/>
+</body></html>

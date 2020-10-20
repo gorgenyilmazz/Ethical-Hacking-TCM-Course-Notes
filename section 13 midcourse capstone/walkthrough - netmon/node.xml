@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>title</key><string>Walkthrough - Netmon</string>
+  <key>nodeid</key><string>2307a844-4216-4ff8-b1b9-0a53df72eb36</string>
+  <key>modified_time</key><integer>1599507795</integer>
+  <key>version</key><integer>6</integer>
+  <key>content_type</key><string>text/xhtml+xml</string>
+  <key>created_time</key><integer>1599483578</integer>
+  <key>info_sort_dir</key><integer>1</integer>
+  <key>order</key><integer>9</integer>
+  <key>info_sort</key><string>order</string>
+</dict>
+</node>

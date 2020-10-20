@@ -1,0 +1,56 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Gaining Shell Access</title>
+</head><body>so far all we have is a credential. So we need to think that what we can do with that credential so firsly let's boot up metasploit.<br/>
+<br/>
+What is PsExec?<br/>
+<br/>
+first definition:As you probably know, PsExec is a tool included in the Sysinternals Suite created by Mark Russinovich. Originally, it was intended as a convenience tool for system administrators so they could perform maintenance tasks by running commands on remote hosts.<br/>
+<br/>
+Definiton From Windows: . PsExec is a light-weight telnet-replacement that lets you execute processes on other systems, complete with full interactivity for console applications, without having to manually install client software. PsExec's most powerful uses include launching interactive command-prompts on remote systems and remote-enabling tools like IpConfig that otherwise do not have the ability to show information about remote systems.<br/>
+<br/>
+---------------------------------------------------------------------------------------------------<br/>
+<br/>
+<br/>
+this will be a quick repeat of passed lessons<br/>
+<br/>
+<img src="image.png"/><br/>
+<br/>
+<br/>
+<br/>
+<img src="image 2.png"/><br/>
+<br/>
+<img src="image 3.png"/><br/>
+<br/>
+let's run this and see what happens this might not work on the first go.<br/>
+<br/>
+<img src="image 4.png"/><br/>
+<br/>
+okey this doesn't work maybe we can change the target<br/>
+<br/>
+<br/>
+<br/>
+<img src="image 5.png"/><br/>
+<br/>
+<img src="image 6.png"/><br/>
+<br/>
+we've got virus detected somewhat windows defender turned on but that's ok this is a good learning lesson.<br/>
+So psexec is getting block let's try something different<br/>
+let's try psexec.py without metasploit.<br/>
+<br/>
+<br/>
+<img src="image 7.png"/><br/>
+so meterpreter got picked up psexec.py did not<br/>
+<br/>
+Pro Tip:<br/>
+<br/>
+actually psexec is one of the more noisy when it comes to antivirus we should avoid starting psexec before that we should try with smbexec and wmiexec, if you can they're only like half shells is what they're considered they're not fully interactive but they're good enough to navigate around the C drive and you can issue commands as you navigate. You can figure out that what antivirus is running and maybe try to find disable it so then you can run something more robust like windows meterpreter.<br/>
+<br/>
+<br/>
+<br/>
+MOST IMPORTANT TAKEAWAY IS THAT<br/>
+<br/>
+DON'T JUST GIVE UP AT THE FIRST ONE. KNOW THAT THERE ARE MULTIPLE OPTIONS.<br/>
+<br/>
+</body></html>

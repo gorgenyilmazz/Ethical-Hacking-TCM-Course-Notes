@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>expanded</key><true/>
+  <key>title</key><string>Attacking Active Directory: Initial Attack Vectors</string>
+  <key>nodeid</key><string>423bb7ad-92f1-4d09-8641-e344b8ac97c5</string>
+  <key>modified_time</key><integer>1600861486</integer>
+  <key>version</key><integer>6</integer>
+  <key>content_type</key><string>application/x-notebook-dir</string>
+  <key>created_time</key><integer>1600861486</integer>
+  <key>info_sort_dir</key><integer>1</integer>
+  <key>order</key><integer>12</integer>
+  <key>info_sort</key><string>order</string>
+</dict>
+</node>

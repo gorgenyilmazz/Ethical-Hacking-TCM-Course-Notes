@@ -1,0 +1,31 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Brute Force Attacks</title>
+</head><body>we'll exploit ssh but remember that ssh is really not always that much of a low hanging fruit.<br/>
+Now there are three reasons we're going to do this and this is from a realistic perspective. If we see SSH on an assessment we're going to try to brute force against it or use weak or default credentials and we're going to do that because one we're going to test password strength two we're going to see if we can get in with a weak password or default password.<br/>
+And if we can also attest the password strength and 3 we're going to see how well the blue team performs, Do they catch us? Do they see us brute forcing this should be something that should alert when is being performed.<br/>
+But you would be surprised how often it does not. So during a pen test I am as loud as possible. This is not a red team assessment where we're trying to be quiet. This is a pen test where we are as loud as possible and we are hoping to be caught.<br/>
+Sometimes just it or just told to tone it down a little bit you know hey we're seeing you. Can you be more quiet.? And we just want to be caught some time so we can give kudos in a report and say Hey you saw scanning here and here and kudos to you but you didn't see a scanning here and here.<br/>
+<br/>
+So what we're gonna do is we're going to use a tool called the Hydra and then I'll show you the Metasploit way as well.<br/>
+<br/>
+So Hydra is a brute force tool.<br/>
+<br/>
+<img src="image.png"/><br/>
+<br/>
+-P : password list <br/>
+-t : thread<br/>
+-V : verbosity<br/>
+<br/>
+<img height="348" src="image 2.png" width="550"/><br/>
+<br/>
+<span style="font-size: 13pt">Metasploit Way<br/>
+<br/>
+</span><span style="font-size: 11pt">msfconsole - search ssh - use auxiliary/scanner/ssh/ssh_login<br/>
+<br/>
+</span><img height="531" src="image 3.png" width="800"/><br/>
+<br/>
+<img src="image 4.png"/><br/>
+<br/>
+10 thread will really be loudly.</body></html>

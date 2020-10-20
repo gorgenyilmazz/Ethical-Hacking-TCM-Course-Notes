@@ -1,0 +1,143 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Setting Up Users, Groups, and Policies</title>
+</head><body>go ahead and play our domain controller machine.<br/>
+<br/>
+<img src="image.png"/><br/>
+<br/>
+<br/>
+<img src="image 2.png"/><br/>
+<br/>
+&quot;Organizational Units&quot;<br/>
+<br/>
+<img src="image 3.png"/><br/>
+<br/>
+in Users we want to clean users area so we'll create an organizational unit called Groups and take all groups out of the users accounts and then drag them into Groups OU.<br/>
+<br/>
+<img src="image 4.png"/><br/>
+<br/>
+give this name &quot;Groups&quot; and say OK.<br/>
+<br/>
+<img src="image 5.png"/><br/>
+<br/>
+<img src="image 6.png"/><br/>
+<br/>
+That down arrow means that the account has been disabled.<br/>
+<img src="image 7.png"/><br/>
+<br/>
+<img src="image 8.png"/><br/>
+if you're a domain users that means you are able to log into the domain. We'll create a couple of domain users and we'll create another domain admin as well and just give an idea for what these accounts are going to look like.<br/>
+<br/>
+for that<br/>
+<img src="image 9.png"/><br/>
+<br/>
+<img src="image 10.png"/><br/>
+<br/>
+<img src="image 11.png"/><br/>
+<br/>
+password = Password1 <br/>
+okey let's now create a domain admin <br/>
+right click administrator &gt; copy <br/>
+<br/>
+<img src="image 12.png"/><br/>
+password : Password@$7516<br/>
+<br/>
+let's create another user.<br/>
+right click Frank Castle &gt; copy<br/>
+<img src="image 13.png"/><br/>
+password : Password2<br/>
+<br/>
+let's double click to these users and admin and see their member of section. <br/>
+<img src="image 14.png"/><br/>
+because we copied this from frank castle.<br/>
+<br/>
+<img src="image 15.png"/><br/>
+we copied this from Administrator.<br/>
+Let's go ahead and create fake SQL service account and we'll make this administrator but this is bad, service accounts should not be domain administrator accounts. <br/>
+TCM &quot; but i would say probably 70 percent of the time that i'm doing a pentest the service accounts are domain administrators<br/>
+<br/>
+<img src="image 16.png"/><br/>
+<br/>
+Password : MYpassword123$<br/>
+<br/>
+let's open that SQL account and say we forget password in the description.<br/>
+<br/>
+<img src="image 17.png"/><br/>
+<br/>
+<span style="color: #ff0000">a lot of domain administrators put their passwords on the service accounts' description because they think that they're the only ones that can read them. Not true. </span>we'll see how we can read this later on.<br/>
+<br/>
+Okey this is good to go let's set up a file share<br/>
+<br/>
+in server manager <br/>
+File and Storage Services &gt; Shares &gt; TASKS &gt; New Share <br/>
+<br/>
+<img src="image 18.png"/><br/>
+<br/>
+next &gt; next <br/>
+<br/>
+<img src="image 19.png"/><br/>
+and then next &gt; next &gt; create &gt; close<br/>
+<br/>
+we used all the defaults.<br/>
+<br/>
+<img src="image 20.png"/><br/>
+<br/>
+<br/>
+why did we do that because most domain controllers have file shares. <br/>
+And we want to open up 139 and 443 so that we have SMB enabled on this domain controller.<br/>
+<br/>
+we have still some things to do<br/>
+<br/>
+run command prompt as administrator. <br/>
+we're going to create what is called SBN service principal name.<br/>
+don't worry too much about what we're doing right now, we're going to talk about this way more when it comes time. And we're going to talk about the attack related to this. We're setting up an attack for Kerberroasting and that is an attack that attacks services. So we set up the sql service. We're going to attack sql service but we have to set up a service principle name which will cover a bit later on the course.<br/>
+<br/>
+(for more information about spn https://docs.microsoft.com/en-us/windows/win32/ad/service-principal-names#:~:text=A%20service%20principal%20name%20(SPN,not%20have%20the%20account%20name. )<br/>
+<br/>
+<br/>
+<img src="image 21.png"/><br/>
+<br/>
+MARVEL our root domain and forest name as well.<br/>
+<br/>
+We can verify that in below way.<br/>
+<br/>
+<img src="image 22.png"/><br/>
+<br/>
+you can see that sql service has been set.<br/>
+<br/>
+OK now we've set up our users we have set up our Kerberroasting attack, SMB shares.<br/>
+There's one last thing we need to do.<br/>
+<br/>
+<img src="image 23.png"/><br/>
+<br/>
+run that as administrator.<br/>
+<br/>
+<img src="image 24.png"/><br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<img src="image 25.png"/><br/>
+<br/>
+say ok<br/>
+<br/>
+Now why are we disabling windows defender. <br/>
+<br/>
+antivirus bypassing and evasion techniques change so quickly and significantly.  A lot of these attacks are still going to work regardless of the antivirus that you have. So what is important is to know the fundamentals of the attacks. <br/>
+Knowing the foundations and the basics are way more important at this stage than any evasion techniques.<br/>
+<br/>
+<img src="image 26.png"/><br/>
+<br/>
+<img src="image 27.png"/><br/>
+<br/>
+<img src="image 28.png"/><br/>
+<br/>
+<img src="image 29.png"/><br/>
+so we disabled the defender So once we actually join our domain pieces to the domain we will have no windows defender enabled on them which is perfect that's how we want to attack this.<br/>
+<br/>
+in the next lesson we'll join our user pieces into domain.<br/>
+<br/>
+<br/>
+<br/>
+</body></html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Walkthrough - Netmon</title>
+</head><body><img src="image.png"/><br/>
+<br/>
+looks like in ftp side we are in c drive and this is not so great if we are system admin and we allowed that open.<br/>
+<br/>
+the name of the box gives us hint so probably our atatck vector is going to be PRTG Network Monitor.<br/>
+<br/>
+Okey if port21 is open for anonymous login we can upload some malicious files and execute them through a web server like port 80 or<br/>
+port 47001 for example.<br/>
+<br/>
+Now this is microsoft ftpd server if it was a different file protocol ftp server, maybe there's remote code execution already built in or some sort of buffer overflow something allows us to get that shell back but in this instance there is not.<br/>
+So we can upload malicious files all the day but unless execute that file this'll be pointless.<br/>
+<br/>
+so let's go to the web page<br/>
+<br/>
+<img src="image 2.png"/><br/>
+<br/>
+okay i've tried admin admin and i've searched for default credentials and tried these as well but no luck. Let's look at exploits.<br/>
+<br/>
+<img src="image 3.png"/><br/>
+<br/>
+this is for authenticated users so we need to log in to that.<br/>
+<br/>
+<img src="image 4.png"/><br/>
+it looks like we're providing cookies<br/>
+<br/>
+so we need to look for a database file or where that might be stored. Perhaps we can go to google and say &quot;prtg network monitor db file location&quot;<br/>
+<br/>
+<img src="image 5.png"/><br/>
+(https://kb.paessler.com/en/topic/463-how-and-where-does-prtg-store-its-data)<br/>
+<br/>
+in this link probably we need to hunt around to try to find credentials so let's do that and we'll do that through ftp.<br/>
+<br/>
+<img src="image 6.png"/><br/>
+with ls -la we could see the hidden directories <br/>
+<br/>
+<img src="image 7.png"/><br/>
+<br/>
+there is Paessler folder which we've seen while searching on google.<br/>
+<br/>
+<img src="image 8.png"/><br/>
+<br/>
+let's download that files and see what's there<br/>
+<br/>
+<br/>
+<img src="image 10.png"/><br/>
+<br/>
+<br/>
+<br/>
+<img src="image 9.png"/><br/>
+<br/>
+this is encrypted let's look at a different one.<br/>
+<br/>
+<img src="image 11.png"/><br/>
+<br/>
+<br/>
+<br/>
+<img src="image 12.png"/><br/>
+<br/>
+we've find it!<br/>
+<br/>
+<br/>
+now this is gonna be realistic look at that.<br/>
+<br/>
+<img src="image 13.png"/><br/>
+<br/>
+we've tried that credentials but we failed what do we do now? let's try 2019 instead of 2018<br/>
+<br/>
+<img src="image 14.png"/><br/>
+<br/>
+we succeed.<br/>
+<br/>
+This is realistic because we just changed one number off of a password and gained access<br/>
+ password reuse is one of the biggest issues that we have in the industry. So if we see like a password for example fall2019 we should try fall2020 too. Actually that's the gist of the this machine. Let's open up burpsuit to find cookies.<br/>
+<br/>
+<img src="image 15.png"/><br/>
+<br/>
+now let's copy paste the exploit we've seen <br/>
+<br/>
+<img src="image 16.png"/><br/>
+<br/>
+don't forget to space under the /bin/bash for declaring<br/>
+<br/>
+<img src="image 17.png"/><br/>
+<br/>
+let's fire this up.<br/>
+<br/>
+<img src="image 18.png"/><br/>
+now let's try these credentials.<br/>
+<br/>
+<br/>
+let's install impacket.<br/>
+<br/>
+<span style="color: #ff0000">what is impacket?</span><br/>
+<br/>
+https://www.secureauth.com/labs/open-source-tools/impacket<br/>
+<br/>
+<br/>
+<br/>
+<img src="image 19.png"/><br/>
+<img src="image 20.png"/><br/>
+<br/>
+(https://web.archive.org/web/20140625065218/http://blog.accuvant.com/rdavisaccuvant/owning-computers-without-shell-access/)<br/>
+<br/>
+<br/>
+Now when it comes to pen testing this method is picked up a lot less than the Metasploit method.<br/>
+<br/>
+They still upload some sort of reverse shell but Metasploit picked up a lot easier by antivirus especially when you don't know what you're up against .<br/>
+even better is something like smbexec.py or wmiexec.py <br/>
+All of those use the same syntax are part of the same package<br/>
+smbexec and wmiexec are picked up way less than psexec does. <br/>
+But let's try psexec.<br/>
+<br/>
+<img src="image 21.png"/><br/>
+<br/>
+we did it and we did it without metasploit. Now do that with wmiexec.py<br/>
+<br/>
+<br/>
+<img src="image 22.png"/><br/>
+this is semi-interactive shell and some commands will run some won't but this is a good way to kind of navigate yourself around the network. And just kinda see where you are at.<br/>
+<img src="image 23.png"/><br/>
+<br/>
+let's try out with smbexec just a proof of concept.<br/>
+<br/>
+<img src="image 24.png"/><br/>
+<br/>
+again just a semi-interactive the full interactive one is with psexec.py<br/>
+<br/>
+And this makes sense right because we said that smbexec and wmiexec is better in terms of stealth.<br/>
+<br/>
+Especially if you're up against antivirus or something then you can go to like programfiles or you can even look through you know you can query and see what kind of antivirus is in there what kind of firewall rules are in there.<br/>
+And you kind of get the lie of the land with your smbexec or wmiexec before you actually try to attempt a meterpreter shell.<br/>
+<br/>
+<br/>
+THINK LIKE A DUMB USER WOULD THINK AND YOU'LL BE SUCCESSFULL</body></html>

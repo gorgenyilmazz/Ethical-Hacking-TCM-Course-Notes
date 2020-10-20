@@ -1,0 +1,35 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Scanning with Nmap</title>
+</head><body><span style="font-size: 13pt"><span style="color: #ff0000">Different Ways to Capture IP Adresses in a local network </span></span><br/>
+<br/>
+netdiscover -r 192.168.131.0/24 <br/>
+<br/>
+<img src="image.png"/><br/>
+<br/>
+<img src="image 2.png"/><br/>
+<br/>
+Nmap stands for Network Mapping <br/>
+<br/>
+Nmap Stealth Scan (also known TCP SYN)<br/>
+<br/>
+This used to identify open ports and services. <br/>
+<br/>
+How to do this?<br/>
+in normal with three hand shake these packets are sent SYN SYNACK ACK<br/>
+in Stealth scan this become that ; SYN SYNACK RST because we dont want to estanblish a connection just are saying hi are you there?<br/>
+<br/>
+So as the name implies stealth scan should be stealthly. But if target's security system is good then they can detect the scan but most of times they couldn't detect.<br/>
+<br/>
+<img src="image 3.png"/><br/>
+<br/>
+-T4 is a choice for speed. If speed was 1 (too slow) then detectability would raise. if speed was 5(most speed) then we might miss a port or information etc.<br/>
+-p- this means that scan all of the ports (65535) if we say -p 80 then this would scan just port 80. if we don't write anything then it scans first 1000 ports.<br/>
+-A meaning of that is scaning every aspects (OS detection , version detection) but OS information isn't accurate all the time.<br/>
+Our job is look up and try to find exploit in these service's version etc.<br/>
+<br/>
+nmap -sU -T4 192.168.57.134 <br/>
+this is udp scanning we got rid of -p- because there is not instant response time in udp so we would wait hours upon hours if we scan all the ports.<br/>
+<br/>
+</body></html>

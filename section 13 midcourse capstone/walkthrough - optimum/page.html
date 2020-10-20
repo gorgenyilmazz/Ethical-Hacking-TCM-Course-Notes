@@ -1,0 +1,155 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Walkthrough - Optimum</title>
+</head><body><img src="image.png"/><br/>
+<br/>
+let's go to the web page. <br/>
+<img src="image 2.png"/><br/>
+<br/>
+Ok there is no default credentials for HFS. It is setting in beginning. So let's take a look at exploits about HFS <br/>
+<br/>
+<img src="image 3.png"/><b><br/>
+</b><b><br/>
+</b><img src="image 4.png"/><br/>
+<br/>
+<br/>
+<img src="image 5.png"/><br/>
+<br/>
+<img src="image 6.png"/><br/>
+<br/>
+we need to do some privesc. <br/>
+We can say getsystem but this won't work i tried.<br/>
+<br/>
+<img src="image 7.png"/><br/>
+<img src="image 8.png"/><br/>
+<br/>
+<img src="image 9.png"/><br/>
+<br/>
+on 64bit machines it's not easy to gather local exploits from the exploit suggester. It's better for a 32 bit machines. So we're gonna have to do manual post exploitation and this is somehting we haven't covered. But we've learned scripts about that on linux machines that are out there (LinEnum.sh, LinuxPrivChecker.py ) Ok how to we do that on windows machine. Simple question. Go to google and ask that.<br/>
+<br/>
+(https://www.fuzzysecurity.com/tutorials/16.html) and this comes up and this is like bible when it comes to windows privesc.<br/>
+<br/>
+TCM<br/>
+&quot;privilege escalation this kind of stuff isn't hyper realistic.<br/>
+There's some realism when you're doing pentest but the majority of the time your privesc isn't going to fall from any of this kind of things. I doesn't mean it can't happen, it just means it's not likely. Privesc is usually on the active directory side and it's not related to most of this stuff (mentions fuzzysecurity's article) This is better for capture the flag type things you know doing the hack the box machines or any other type of lab environment like this where they demonstrate the ability to use exploits and privilege escalation.&quot;<br/>
+<br/>
+Now there is a tool called sherlock we're gonna use that on top of that we can say to google <br/>
+<img height="553" src="image 10.png" width="600"/><br/>
+<br/>
+<img src="image 11.png"/><br/>
+(https://www.exploit-db.com/exploits/39719)<br/>
+also we can go to metasploit and search for this.<br/>
+<br/>
+<img src="image 12.png"/><br/>
+<br/>
+So as you can see OS name and OS version is very important so first things first you must look for sysinfo in meterpreter.<br/>
+<br/>
+<img src="image 13.png"/><br/>
+<br/>
+so let's use that.<br/>
+<br/>
+<img src="image 14.png"/><br/>
+<img src="image 15.png"/><br/>
+<br/>
+this exploit have some problems i've tried that options set before running but it's still messed up.<br/>
+this exploit is a little iffy it sometimes works sometimes not<br/>
+<br/>
+<img src="image 16.png"/><br/>
+<br/>
+it didn't work so we will use manual methods. <br/>
+Firstly let's take a look at <b><span style="color: #ff0000">sherlock</span></b>from rastamouse tool. <br/>
+<img src="image 17.png"/><br/>
+<br/>
+<br/>
+<br/>
+we've copied Sherlock.ps1 and open a file from terminal and paste into that file<br/>
+<br/>
+<br/>
+<img src="image 18.png"/><br/>
+now we're gonna try download this file from optimum machine.<br/>
+<br/>
+<img src="image 19.png"/><br/>
+as always we're opening a server from attacker machine.<br/>
+<br/>
+<img src="image 20.png"/><br/>
+<br/>
+what we're gonna do is that.<br/>
+<br/>
+<img src="image 21.png"/><br/>
+<br/>
+<img height="517" src="image 39.png" width="400"/><br/>
+<br/>
+<br/>
+<br/>
+<b><span style="color: #ff0000">What is powershell.exe?<br/>
+<br/>
+</span></b>PowerShell is a Microsoft configuration management and task automation framework that consists of a command line shell and a related scripting language. It has been available across platforms and is currently open-source. PowerShell allows administrators to perform administrative tasks both remotely and on local Windows systems, and was first released as an integral part of Windows 7 and Windows Server 2008 R2 operating systems.<br/>
+(https://www.file.net/process/powershell.exe.html)<br/>
+<br/>
+<b><span style="color: #000000">---------------------------------------------------------<br/>
+<br/>
+</span></b><span style="color: #000000">TCM<b><br/>
+</b>&quot;all we're doing with sherlock is we're bypassing execution policy. Powershell.exe is just there to prevent us from running files that could be malicious it's not really anything other than a protection that we just turn off.&quot;<b><br/>
+</b></span><b><span style="color: #ff0000"><br/>
+<img src="image 22.png"/><br/>
+</span></b><span style="color: #000000">ok this vulnerabilites come up let's try another tool for that. Windows-exploit-suggester<br/>
+</span><b><span style="color: #ff0000"><br/>
+<br/>
+<img src="image 23.png"/><br/>
+<br/>
+</span></b><span style="color: #000000">for using this we need to update<b/></span><b><span style="color: #ff0000"><br/>
+</span></b><b><span style="color: #ff0000"><img src="image 24.png"/><br/>
+<br/>
+<br/>
+</span></b>we need to target's systeminfo <br/>
+<br/>
+we're taking that and paste it sysinfo.txt <br/>
+<br/>
+<img height="491" src="image 25.png" width="500"/><br/>
+<br/>
+<img src="image 26.png"/><br/>
+<br/>
+we're doing that actually<br/>
+<img height="299" src="image 27.png" width="700"/><br/>
+<br/>
+<img src="image 28.png"/><br/>
+let's run it.<br/>
+<img src="image 31.png"/><br/>
+<br/>
+<br/>
+okey go to here (https://pypi.org/project/xlrd/#files)<br/>
+download xlrd-1.2.0.tar.gz <br/>
+go to /Downloads directory and type &quot;tar xf xlrd-1.2.0.tar.gz&quot; then go to xlrd-1.2.0 directory and type &quot;python setup.py install&quot;<br/>
+<br/>
+<br/>
+<img src="image 29.png"/><br/>
+<br/>
+now we can execute windows- exploit-suggester<br/>
+<img height="700" src="image 30.png" width="1306"/><br/>
+<br/>
+and we're getting these vulnerabilities. <br/>
+let's take MS16-098 vulnerability:<br/>
+<br/>
+<img src="image 32.png"/><br/>
+<br/>
+there is already links related to vulnerability provided from windows-exploit-suggester. Let's download this.<br/>
+<img src="image 33.png"/><br/>
+ok let's go to binary page of that and download from above github link<br/>
+<br/>
+after download that we're opening python server from downloads directory for the sake of simplicity<br/>
+<img src="image 34.png"/><br/>
+<br/>
+<img src="image 35.png"/><br/>
+<br/>
+we downloaded to target machine.<br/>
+<img src="image 36.png"/><br/>
+<br/>
+but this is not worked because we actually took the placeholder of the file.<br/>
+because our main machine perceive the file as a malware and didn't download we need to go to here and say open i've already done it.<br/>
+<img height="390" src="image 37.png" width="650"/><br/>
+<br/>
+<img src="image 38.png"/><br/>
+<br/>
+and we're done here.<br/>
+</body></html>

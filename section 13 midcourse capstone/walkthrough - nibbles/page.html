@@ -1,0 +1,240 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Walkthrough - Nibbles</title>
+</head><body><img height="512" src="image.png" width="700"/><br/>
+<br/>
+<b>Now this scenario is quite common. In this scenario we've 2 ports open and they are 22(ssh) and 80(http) in this vector especially on easy machine like this for CTF typically port 80 is the way in and port 22 would be utilized in some way later on you might get a reverse shell on port 80, you might find credentials on port80. <br/>
+<br/>
+Something on port 80 might lead us to a nice shell on port 22 later on.<br/>
+<br/>
+<br/>
+<span style="color: #ff0000">New tool<br/>
+<br/>
+</span><span style="color: #000000">Searchsploit.<br/>
+</span><br/>
+<span style="color: #ff0000">What is it?<br/>
+<br/>
+</span></b>“Searchsploit” is a command-line search tool for Exploit-DB, which also allows you to bring a copy of Exploit-DB with you.<br/>
+SearchSploit provides you with the ability to perform detailed offline searches in locally saved repositories.This capability is particularly useful for security assessment of the network without Internet access. <b><br/>
+</b><b><br/>
+</b>---------------------------------------------------------------------------------------------<br/>
+<br/>
+the more being spesific in your query the more worse because in that way we might miss some details in terms of exploits. <br/>
+<br/>
+<img height="296" src="image 2.png" width="700"/><br/>
+<br/>
+Searchsploit is pulling down from exploit database which is actually already pulled down and updates on the machine.<br/>
+<br/>
+If we see .rb for ruby that means metasploit module most of the time.<br/>
+<br/>
+!We're looking for remote exploits not local because obviously we're not on target machine right now.<br/>
+<br/>
+Actually in CTF we're not actually after the Denial of Service there is no point to do that. But in real pentesting we could absolutely write this up.<br/>
+<br/>
+OK. Nothing interesting in here let's try the web page for this machine.<br/>
+<br/>
+<img src="image 3.png"/><br/>
+<br/>
+<br/>
+Ok still nothing interesting we already know apache 2.4.18 and ubuntu. <br/>
+From here we can do some various things and approaches.<br/>
+1)we can go ahead and <b>start up nikto scan.(vulnerability scanning)<br/>
+</b><b>https://github.com/sullo/nikto<br/>
+<br/>
+</b>2) we can do some directory busting. Because if we do see just this hello world page maybe they are running somethings on backend and we'll have to use directory busting to find that.<br/>
+<br/>
+3) We can do some enumeration with wappalyzer or view page source.<br/>
+<br/>
+we'll do third.<br/>
+<br/>
+<img height="328" src="image 4.png" width="500"/><br/>
+<br/>
+looking source code, comments and maybe hardcoded credentials is important.<br/>
+So let's try to go this highlighted directory.<br/>
+<br/>
+<img src="image 5.png"/><br/>
+<br/>
+the links in the page is not useful(redirecting the same page) so we might look at source code to try to find any useful information, we can look at wappalyzer as well.<br/>
+<br/>
+there is nothing useful in source code also.<br/>
+<br/>
+<img src="image 6.png"/><br/>
+still there is nothing here . <br/>
+<br/>
+let's use searchsploit to search nibble blog exploits if they exist.<br/>
+<br/>
+<img src="image 7.png"/><br/>
+<br/>
+Now sql injection can lead us to get a shell or can cause database dump, can lead to a lot of malicious stuff but not always.<br/>
+So second exploit is looking like way more juicy. So we'll look at second.<br/>
+<img src="image 8.png"/><br/>
+<br/>
+<br/>
+<b><br/>
+<img src="image 9.png"/><br/>
+<br/>
+So we need to authenticate to this there is probably a log in page somewhere.<br/>
+<br/>
+</b><img src="image 5.png"/><br/>
+There is nothing in here what we can do is we can take a shot with 10.10.10.75/nibbleblog/admin. <br/>
+Or we can fire off a directory busting with dirbuster. <br/>
+<img src="image 10.png"/><br/>
+<br/>
+<br/>
+<img src="image 11.png"/><br/>
+<br/>
+we've already found admin.php but we could guess the admin page without doing directory busting.<br/>
+<br/>
+<img height="600" src="image 12.png" width="700"/><br/>
+<br/>
+so this is a personal page because of that this won't use default credentials. So we could built out a brute force like in the jerry episode we can use admin or administrator or something along these lines as username then use a common bad password list here with burpsuite intruder and see if we can get in.<br/>
+We could also go to 10.10.10.75/nibbleblog and then use a tool called CeWL.<br/>
+<br/>
+<br/>
+<b><span style="color: #ff0000">What is CeWL? <br/>
+<br/>
+</span></b><span style="font-size: 11pt"><b>CeWL</b><div style="text-align: left"><span style="font-family: arial"> is a ruby app which spiders a given URL to a specified depth, optionally following external links, and returns a list of words which can then be used for password crackers such as John the Ripper.</span></div> <br/>
+</span><br/>
+<br/>
+CEWL or say it cool. It is a custom word list generator programmed in ruby. It can create custom word lists based on the target website.<br/>
+<br/>
+What basically it does ?<br/>
+<br/>
+With a given URL and a specified depth and possible external links, cewl give you list of words that can be used on application for an brute force attack.<br/>
+<br/>
+------------------------------------------------------------------------------------------<br/>
+<br/>
+But we don't need to do that because there is not a lot word in here.<br/>
+<br/>
+we can do that with burpsuite community edition but it's very slow so we are guessing right now. <br/>
+let's try username:admin password:nibbles <br/>
+also read below question.<br/>
+<br/>
+<img src="image 13.png"/><br/>
+<br/>
+<br/>
+Now we're in.<br/>
+<br/>
+<img height="353" src="image 14.png" width="650"/><br/>
+<br/>
+we need to know if this is the right version for us so we can go into setting here.<br/>
+<br/>
+<br/>
+<img src="image 15.png"/><br/>
+<br/>
+What you should be doing as well as enumerating this whole application. As we know the version we can set the exploit's options.<br/>
+<br/>
+<img src="image 16.png"/><br/>
+<br/>
+<img src="image 17.png"/><br/>
+we set the /nibbleblog because path is not directly /admin.php it is /nibbleblog/admin.php and we thought it can know where the admin panel is.<br/>
+<br/>
+<img src="image 18.png"/><br/>
+bingo we got shell what it is doing is it's uploading a malicious image.php<br/>
+as we see here there is a image upload section<br/>
+<img src="image 19.png"/><br/>
+and actually we're loading .php so that should not be happening right. We should have some sort of black listing going on or white listing on extensions that we want to run.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<img src="image 21.png"/><br/>
+<br/>
+<img src="image 20.png"/><br/>
+<br/>
+<br/>
+since we're not high level user we can look at privileges escalations on OS version given.<br/>
+<br/>
+But before doing that we'll try some commands and see if there are anything useful.<br/>
+<br/>
+<br/>
+<img src="image 22.png"/><br/>
+<br/>
+<br/>
+<img src="image 23.png"/><br/>
+<br/>
+why are we looking history in such a persistent way? <br/>
+Because you never know if a user typing in a password or some sort of credentials there. But as we can see this is a dead duck in that instance. So what we can do?<br/>
+<br/>
+<span style="color: #ff0000"><b>What is sudo?<br/>
+<br/>
+</b></span><span style="font-size: 10pt"><b>sudo</b><div style="text-align: left"><span style="font-family: arial">  is a program for Unix-like computer operating systems that allows users to run programs with the security privileges of another user, by default the superuser. It originally stood for &quot;superuser do&quot; as the older versions of </span></div><b>sudo</b><div style="text-align: left"><span style="font-family: arial"> were designed to run commands only as the superuser.</span></div> <br/>
+<br/>
+<br/>
+-------------------------------------------------------------------------<br/>
+</span><br/>
+<br/>
+<img src="image 24.png"/><br/>
+<br/>
+in here sudo -l is for no passwords. And this is the man explanation for it <br/>
+<img src="image 25.png"/><br/>
+Since we don't know the root password we are kind of stuck in here but there is something monitor.sh as we are able to execute without root password.<br/>
+<br/>
+<img src="image 26.png"/><br/>
+there is nothing in monitor.sh. Just su command. Nowe what we can do? we can enumerate personal.zip file see if there is useful information, credential etc.<br/>
+we're not going to head out that way that rabbit hole actually.<br/>
+<br/>
+<img src="image 27.png"/><br/>
+<br/>
+Let's say there is nothing we can do since sudo -l is not obvious to us and there is no history there is no exploit for OS information in the sysinfo. <br/>
+What we can do now? Well there are great scripts out there.<br/>
+They are <span style="color: #ff0000"><b>LinEnum.sh</b></span> and <span style="color: #ff0000"><b>Linuxprivchecker.py<br/>
+</b></span><span style="color: #ff0000"><b><br/>
+<br/>
+</b></span><b>Anyway , if we can execute the file as root and without password in that path (/home/nibbler/personal/stuff/)<br/>
+why we don't upload a malicious file to that path?<br/>
+<br/>
+actually this will not be a malicious file a bunch of code it will be just a command.<br/>
+<br/>
+<br/>
+for that we are going to here , and if we don't have the required directories we make these directory with the exact order with the path seen in sudo -l command<br/>
+<br/>
+</b><img src="image 28.png"/><b><br/>
+</b><b><br/>
+<span style="color: #ff0000">What is bash -i command?</span><span style="color: #000000"><br/>
+</span><span style="color: #000000">it gives you a interactive shell which is any shell to be able to interact user.<br/>
+<br/>
+it gives you a shell belong to whoever the user executed command is.<br/>
+So in this instance we've the ability of executing files as root in this path without password So if we execute bash -i command inside the /home/nibbler/personal/stuff/monitor.sh file then we can gain root shell.<br/>
+<br/>
+</span></b><img src="image 24.png"/><br/>
+<br/>
+<br/>
+but first we need to give executing permission to monitor.sh<br/>
+<br/>
+<br/>
+<img src="image 29.png"/><br/>
+and finally we are executing the file with sudo and gaining a shell with root.<br/>
+<br/>
+That's it.<br/>
+<br/>
+So i've tried LinEnum.sh script and it worked. <br/>
+<br/>
+1) we're opening a python server to upload the script into nibbles<br/>
+<br/>
+<img src="image 30.png"/><br/>
+<br/>
+2) we're getting the script from nibbles machine<br/>
+<img src="image 31.png"/><br/>
+<br/>
+3) we're copying the script into monitor.sh to be able to execute that as root<br/>
+<img src="image 32.png"/><br/>
+<br/>
+4)we're giving execute permission to monitor.sh<br/>
+<img src="image 33.png"/><br/>
+<br/>
+5) we're executing the file and writing output to a file(inf.txt)<br/>
+<img src="image 34.png"/><br/>
+<br/>
+6) let's look at inf.txt and see what are there<br/>
+<br/>
+<img src="image 35.png"/><br/>
+<img src="image 36.png"/><br/>
+<img src="image 37.png"/><br/>
+<br/>
+<br/>
+<img src="image 38.png"/><br/>
+<img src="image 39.png"/><br/>
+<br/>
+etc. as you can see there are tons of useful information.</body></html>

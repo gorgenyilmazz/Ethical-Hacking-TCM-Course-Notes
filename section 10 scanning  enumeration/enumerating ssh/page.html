@@ -1,0 +1,28 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Enumerating SSH</title>
+</head><body>We have the information about openssh from nmap scanning.<br/>
+<img src="image.png"/><br/>
+<br/>
+but sometimes we cannot see the version of ssh and when these times we need to find out on our own.<br/>
+What we do is trying to connect ssh to this spesific port and see if it gives us any information about what's running. And this is the most of the enumeration we can do about ssh except attempting to login but this is the explotation part.<br/>
+<br/>
+<img src="image 2.png"/><br/>
+<br/>
+so we cannot establish in that way. We can use their offer.<br/>
+<br/>
+<img src="image 3.png"/><br/>
+<br/>
+this is going to want a cipher and again we will use their offer.<br/>
+<br/>
+<img src="image 4.png"/><br/>
+<br/>
+so we dont have password and we can terminate this. Well why did we do this? because sometimes what happens is a banner is exposed and the banner will say hey we're running ssh version x.y.z and this is built by this person this company etc. So we looked for a banner here but we couldn't take we want but fortunately we have version information from nmap scanning.<br/>
+<br/>
+So final state of our enumeration notes is like that.<br/>
+<br/>
+<img src="image 5.png"/><br/>
+<br/>
+<br/>
+</body></html>

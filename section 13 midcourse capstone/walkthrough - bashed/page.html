@@ -1,0 +1,145 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Walkthrough - Bashed</title>
+</head><body><img src="image.png"/><br/>
+<br/>
+let's go to the web page and see what's there<br/>
+<br/>
+<img src="image 2.png"/><br/>
+there is no /admin or etc. let's do some directory busting.<br/>
+<img src="image 3.png"/><br/>
+<br/>
+there is interesting directory in here which is dev let's get into this.<br/>
+<br/>
+<img src="image 4.png"/><br/>
+<br/>
+okey let's look at phpbash in the index file. <br/>
+<br/>
+<img src="image 5.png"/><br/>
+<br/>
+<img src="image 6.png"/><br/>
+<br/>
+ok so let's go to the phpbash.php in dev file there must be something useful in here as we can see it'll be a web shell.<br/>
+<br/>
+<img src="image 7.png"/><br/>
+<br/>
+there it is we could grab user flag so straightforward let's see is there anything in metasploit for apache 2.4<br/>
+<br/>
+<img src="image 8.png"/><br/>
+<br/>
+this might be useful but this is a local exploit so let's see what we can in web shell.<br/>
+<br/>
+<img src="image 9.png"/><br/>
+<br/>
+okey this might be useful.<br/>
+<br/>
+<br/>
+<img src="image 10.png"/><br/>
+we can't swith user to scriptmanager so we have no permission for nopassword operation i've also tried out to take the file in searchsploit for local privesc but as a consequence we can't download this file because we've no permission.<br/>
+<br/>
+Ok since we've this www-data user we can access /var/www which is the directory of the web page.<br/>
+<br/>
+<img src="image 11.png"/><br/>
+uploads was looking interesting since we want to upload this machine some malicious files so we've got this and there is index.html let's see what's there?<br/>
+<br/>
+<img src="image 12.png"/><br/>
+<br/>
+so this is a blank html page probably we'll need to generate a payload by way of msfvenom. But in order to exploit that with this way we need to upload this to the target machine so we need to another way<br/>
+So what we can do is going to google and saying &quot;php reverse shell&quot; since we need to gain reverse shell through a php web shell. <br/>
+<br/>
+<img src="image 13.png"/><br/>
+<br/>
+let's download it but we need to be aware of that we knew there is a tool called php reverse shell actually without that doing this search would be hard actually <br/>
+<br/>
+<br/>
+let's go to pentestmonkey.net there'll be an explanation in there.<br/>
+<br/>
+<br/>
+<img src="image 14.png"/><br/>
+<br/>
+<br/>
+ok let's take this file in github.<br/>
+<br/>
+<img height="535" src="image 15.png" width="750"/><br/>
+copy paste to rev.php and save and change these<br/>
+<br/>
+<br/>
+<img src="image 16.png"/><br/>
+let's get that file into target machine through python server and we need to set a listener on 1234<br/>
+<img src="image 17.png"/><br/>
+get the file through wget on target machine's web shell.<br/>
+<br/>
+<img src="image 18.png"/><br/>
+<img src="image 19.png"/><br/>
+we could get shell but still we're www-data<br/>
+<br/>
+<img src="image 20.png"/><br/>
+<br/>
+<br/>
+<br/>
+Ok What is tty(teletypewriter) &gt; (https://dev.to/napicella/linux-terminals-tty-pty-and-shell-192e) , (https://unix.stackexchange.com/questions/4126/what-is-the-exact-difference-between-a-terminal-a-shell-a-tty-and-a-con)<br/>
+<br/>
+TCM <br/>
+&quot;TTY is what prints out stuff to the terminal. We're not in a teletype shell we need to improve this. This is something you should familiarize yourself with because you will run into this situation even in some real world situations.&quot;<br/>
+<br/>
+<img height="474" src="image 21.png" width="550"/><br/>
+<br/>
+<br/>
+<img src="image 22.png"/><br/>
+<br/>
+we can try one of these for simplicity let's start with first one some modification (because we don't want to /bin/sh we want to /bin/bash) and then if it is fail we can go down through list.<br/>
+Note: this may kill your shell if it's fail.<br/>
+<br/>
+<img src="image 23.png"/><br/>
+that actually worked we was seeing just dollar sign because we don't have tty now we're seeing that www-bashed@bashed. now we're in tty <br/>
+<br/>
+<img src="image 24.png"/><br/>
+we can try that but i don't know why it's working &lt;?&gt; <br/>
+<img height="445" src="image 34.png" width="650"/><br/>
+<br/>
+<img src="image 25.png"/><br/>
+ok no history no sudo privileges that's ok <br/>
+let's look what we've as directory<br/>
+<br/>
+<img src="image 26.png"/><br/>
+sometimes we may see backup directory in here and we may want to dig into that so for that we need to know essential linux directories (etc bin boot opt lib like these)<br/>
+<br/>
+<img src="image 27.png"/><br/>
+<br/>
+<img src="image 28.png"/><br/>
+<br/>
+ok it seems like there is a cron somewhere and execute that test.py periodically my guess is in every one minute so here is the question.<br/>
+can we overwrite this test.py file with a python code to gain reverse shell?  Ok let's go to google and ask that.<br/>
+<br/>
+and these is a good cheatsheet about that let's take a look at it.<br/>
+<br/>
+<img height="622" src="image 29.png" width="600"/><br/>
+<br/>
+(http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet)<br/>
+<br/>
+this is the cheatsheet of all the possible one liners.<ul><li style="list-style-type: none">TCM &quot;i use that all the time, most commonly bash here but in other terms we can do.&quot;</li>
+</ul>
+<br/>
+<img src="image 30.png"/><br/>
+<br/>
+we're just take code not python -c it's just a command and modificate this as /bin/bash, -i is interactive mode (with tty) and we need to supply a lhost and a lport. because that's a reverse shell.<br/>
+<br/>
+<img src="image 31.png"/><br/>
+don't forget we're already using port 1234<br/>
+in here AF_INET is your ipv4 address and SOCK_STREAM is your port<br/>
+<br/>
+<img src="image 32.png"/><br/>
+<br/>
+we opened a listening on 2345 +<br/>
+we host this file(test.py) with a python shell and then we could get with wget on target machine.<br/>
+<br/>
+Ok in theory whenever this test.py works we can get shell through listener since this is executed every one minute let's wait and see.<br/>
+<br/>
+<img src="image 33.png"/><br/>
+<br/>
+ok we're root in thhis machine this worked.<ul><li style="list-style-type: none"/>
+</ul>
+<br/>
+<br/>
+</body></html>

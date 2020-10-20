@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>title</key><string>Scanning with Metasploit</string>
+  <key>nodeid</key><string>bee46fe7-8362-41b5-9669-92a756be67df</string>
+  <key>modified_time</key><integer>1597594062</integer>
+  <key>version</key><integer>6</integer>
+  <key>content_type</key><string>text/xhtml+xml</string>
+  <key>created_time</key><integer>1597593627</integer>
+  <key>order</key><integer>1</integer>
+</dict>
+</node>

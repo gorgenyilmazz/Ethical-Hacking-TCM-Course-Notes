@@ -1,0 +1,115 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Joining Our Machines to the Domain</title>
+</head><body>we'll do this for The punisher's machine (domain equivalent of this is Frank Castle) and then let you do this in same way with The Spiderman's machine.(domain equivalent of this is Peter Parker)<br/>
+<br/>
+<br/>
+Go to C drive and add a folder called share<br/>
+<br/>
+<img src="image.png"/><br/>
+right click to this folder &gt; properties &gt; go to sharing tab &gt; Share &gt; Share<br/>
+<br/>
+<img src="image 2.png"/><br/>
+<br/>
+and then say &quot;Yes, turn on network discovery and file sharing for all public networks&quot;<br/>
+<br/>
+now sharing is done now join this to the domain controller.<br/>
+<br/>
+for that we need to domain controller's ip <br/>
+<br/>
+<img src="image 3.png"/><br/>
+then go to frank castle<br/>
+<br/>
+go to Network &amp; Internet Settings<br/>
+<br/>
+<img src="image 4.png"/><br/>
+<img src="image 5.png"/><br/>
+<br/>
+<img src="image 6.png"/><br/>
+double click to highlighted<br/>
+<br/>
+<br/>
+<img src="image 7.png"/><br/>
+<br/>
+<br/>
+say ok then <br/>
+<br/>
+<img src="image 8.png"/><br/>
+access work or school &gt; Connect &gt; <br/>
+<br/>
+<img src="image 9.png"/><br/>
+<br/>
+<img src="image 10.png"/><br/>
+and then for username and password say Administrator P@$$w0rd!<br/>
+then say skip<br/>
+<br/>
+<img src="image 11.png"/><br/>
+restart<br/>
+<br/>
+so this is going to reboot when it reboots you're gonna need to log in as your user. So how is set up this domain is this user is going to be frank castle so fcastle is going to log into the punisher.<br/>
+<br/>
+<img src="image 12.png"/><br/>
+username:fcastle<br/>
+password:Password1<br/>
+<br/>
+<b>everything we've done so far apply the same on the other machine(Peter Parker)</b><br/>
+<br/>
+we can succesfully log into that account with these credentials. That's the consequence of being join to the Domain Controller.<br/>
+<br/>
+<img src="image 13.png"/><br/>
+<br/>
+now let's try log into by creating an administrator account to that.<br/>
+<br/>
+<img src="image 14.png"/><br/>
+we gotta do marvel\ by the way in order to sign into marvel<br/>
+<br/>
+password will be P@$$w0rd!<br/>
+<br/>
+after log in what we're going to do is we're going to enable Frank Castle to be a local administrator on this machine.<br/>
+<br/>
+Then we're gonna go ahead and we're going to navigate over to spiderman's machine and we're gonna set Frank Castle to be a local administrator there.<br/>
+<br/>
+There is two special attacks that involve the usage of local administrators on multiple machines.<br/>
+<br/>
+let's go ahead and open the computer management by right clicking to start icon. <br/>
+<br/>
+<img src="image 15.png"/><br/>
+<br/>
+<img src="image 16.png"/><br/>
+<br/>
+double click to that.<br/>
+<br/>
+<img src="image 17.png"/><br/>
+<br/>
+<br/>
+say add<br/>
+<br/>
+write fcastle and then say &quot;Check Names&quot;<br/>
+<br/>
+<img src="image 18.png"/><br/>
+<br/>
+<br/>
+say ok<br/>
+<br/>
+<img src="image 19.png"/><br/>
+<br/>
+now let's open peter parker and we're going to setup Frank Castle and Peter Parker as administrators as well.<br/>
+<br/>
+<br/>
+administrator members should look like this in peter parker:<br/>
+<br/>
+<img src="image 20.png"/><br/>
+<br/>
+after that let's go to our server machine and take a look at computers section.<br/>
+<br/>
+<img src="image 21.png"/><br/>
+now we can say that we have succesfully joined this domain controller. <br/>
+We did turn off windows defender but for the most part we've got normal default settings for pretty much everything.<br/>
+<br/>
+So, so far besides turning off the defender everything is pretty common across the board for how you would see an Active Directory network set up. So from here we're going to exploit these settings almost default configurations.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</body></html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>SMB Relay Attacks Overview</title>
+</head><body><img src="image.png"/><br/>
+<span style="color: #ff0000"><b>What is SMB Signing?<br/>
+<br/>
+</b></span><b><span style="font-size: 11pt">SMB Signing</span></b><span style="font-size: 11pt"><span style="font-family: arial"><div style="text-align: left"> is a feature through which communications using </div></span><b>SMB</b><span style="font-family: arial"><div style="text-align: left"> can be digitally signed at the packet level. Digitally </div></span><b>signing</b><span style="font-family: arial"><div style="text-align: left"> the packets enables the recipient of the packets to confirm their point of origination and their authenticity.</div></span></span> <br/>
+<br/>
+so now hopefully we are able to understand why smb signing must be disabled for that attack.<br/>
+<br/>
+if smb signing is enabled when we tried to relay credentials it's going to say hey you're not really that person you know this package is not signed by you and im not gonna let you in.<br/>
+<br/>
+But if smb signing is disabled it never checks for that.<br/>
+<br/>
+second requirement is that the machine which we captured hash can't be same machine which we'll relay so the machine captured hash must be admin on other machine. <br/>
+<br/>
+so we're gonna take Frank Castle he's going to be an admin on two machines like we set.<br/>
+<br/>
+We're gonna take the captured hash relay it over to another machine where he's also an Admin and we're gonna do some malicious things on that machine.<br/>
+<br/>
+So let's take a look at more actual perspective<br/>
+<br/>
+<img src="image 2.png"/><br/>
+<br/>
+so we're going to be listening but we're not going to be responding on these servers. So what that means is we're going to use responder to capture and then we're gonna use another tool to relay but we're not actually going to respond back. Because leaving the SMB and HTTP servers turned on can result in conflicts during operation. Once we set that up go and boot up responder<br/>
+<br/>
+<img src="image 3.png"/><br/>
+once this is configured we also need to configure a tool called ntlmrelayx.py<br/>
+<br/>
+<img src="image 4.png"/><br/>
+so ntlmrelayx.py takes the relay it passes it to a target file thatyou specify we'll talk about how we identify those targets in the next lesson. And then  we're going to say smb2support as a switch as well so that we can incorporate anything with SMB too.<br/>
+<br/>
+now the responder is listening we have our relay ready to go and then we just are waiting for event to happen.<br/>
+<br/>
+<img src="image 5.png"/><br/>
+Same event as before we point at this machine with responder listening, it can't access this machine, DNS fails. Ok responder kicks in but doesn't response to that message instead it relays these credentials that it captures to this other machine<br/>
+<br/>
+<img src="image 6.png"/><br/>
+if fcastle is an admin in that machine this is gonna work. So authenticate against it is succeed. And now we're dumping out sensitive information. We're dumping SAM hashes which is that a shadow file of the windows world. <br/>
+These are all of our usernames and the hashes for the local users on this computer(Peter Parker) this is not the domain users but that's okay we can take down entire network utilizing only local users. We could take these hashes offline again and try to crack them or we can pass this hash around and try to get access to other machines as well.<br/>
+<br/>
+So for now take away that we grab a hash we relayed to another machine if smb signing is disabled we can get on that machine as long as we are admin we can not only dump the SAM hashes like this but we can also take it further and get a full shell if we want to.<br/>
+<br/>
+</body></html>

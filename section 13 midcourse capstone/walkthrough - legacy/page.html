@@ -1,0 +1,157 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Walkthrough - Legacy</title>
+</head><body>first thing first we'll do scanning to learn which ports are open.<br/>
+<img height="458" src="image.png" width="750"/><br/>
+<br/>
+nmap: Network Mapper<br/>
+-A : gives a lot of detail such as version dtection, OS detection, Script Scanning etc. There are ways to do separately. -O for OS detection for example.<br/>
+-T4 : it is for speed(1-5). 5 is to much fast and we may miss something<br/>
+-p- : this is for scanning all ports(65535). if we don't specify this nmap scans first 1000 port but we want to guarantee that all ports is scanned because we don't want to miss something. if we want to scan a spesific port we would say -p80 etc.<br/>
+<br/>
+-sS : this is Stealth scan back in the days it is used to be stealth but nowadays it is not stealth. And when we don't specify that nmap will scan as stealth scan.<br/>
+<br/>
+Also this is for tcp scanning and nmap'll scan as tcp. So how does it work?<br/>
+<br/>
+nmap do such thing like that : [SYN]&lt;nmap&gt; [SYN, ACK]&lt;port's response&gt; [RST]&lt;nmap&gt; <br/>
+!!if nmap sent [ACK] message this means we want to connect but if nmap do that then there is no point being &quot;stealth&quot; despite the fact that it's not stealth anymore. So we just learn which ports are open with that way. <br/>
+<br/>
+Keep in mind: But in a perfect world and in theory you should be scanning UDP as well<br/>
+<br/>
+<img src="image 3.png"/><br/>
+&lt;tool: wireshark&gt;<br/>
+<br/>
+-----------ABOUT THE SCANNING RESULTS------------<br/>
+Well we have two ports and these are SMB related.On linux 139 would tie to Samba which is basicallly same thing. So there is a guessing about OS which is very broad and we may get exact OS for later. <br/>
+<br/>
+-----------------------------What is Difference Between Samba and SMB?---------------------------------<br/>
+<br/>
+Samba is a free software re-implementation of the SMB networking protocol, and was developed by Andrew Tridgell.<br/>
+Samba provides file and print services for various Microsoft Windows clients and can integrate with a Microsoft Windows Server domain, either as a Domain Controller(DC) or as a domain member.<br/>
+<br/>
+-----------------------------------------------------------------------------------------------------------------------------<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<img height="420" src="image 2.png" width="750"/><br/>
+<br/>
+<br/>
+So now we are sure for OS. OS is important because some exploits are OS dependent.<br/>
+<br/>
+we've computer name and MAC address and this is fine. Traceroute isn't that important for internal assesment.<br/>
+<br/>
+Message_signing is important. If you ever see message signing disabled this is dangerous. <span style="font-size: 11pt">!!enabled but not required is equally dangerous.</span>This is a finding on a pentest report and could allow an attacker to get a shell<br/>
+<br/>
+<br/>
+-------------------------------STACK EXCHANGE-------------------------------------------<br/>
+<br/>
+<span style="font-size: 11pt"><div style="text-align: left"><span style="font-family: Arial">Message signing, in this context, refers to SMB (Server Message Block) signing.</span></div> <br/>
+<br/>
+<div style="text-align: left"><span style="font-family: Arial">Server Message Block (SMB) is a common Windows <i>&quot;application-layer&quot;</i> network protocol, and signing is a feature that allows SMB communications to be digitally <i>&quot;signed&quot;</i> at the <i>&quot;packet-level&quot;.</i> The subsequent <i>&quot;signature&quot;</i> provides a mechanism by which a recipient can verify the authenticity of a source.<br/>
+</span></div><br/>
+<br/>
+<br/>
+<div style="text-align: left"><span style="font-family: Arial">For example, it is important for Domain Controllers to have SMB signing enabled because SMB is the protocol used by clients to download Group Policy information, and SMB signing provides a way to certify that the client is receiving a genuine Group Policy.<br/>
+</span></div><br/>
+<div style="text-align: left"><span style="font-family: Arial">SMB signing is supported on all versions of Windows, but is only enabled by default on Domain Controllers.<br/>
+<br/>
+Nmap is letting you know that:<br/>
+</span></div></span><ul><li>SMB signing is disabled;</li>
+<li>This is the more dangerous — or less secure — option (as opposed to having SMB signing enabled);</li>
+<li>This is the default setting for the system you are scanning.</li>
+</ul>
+<div style="text-align: left"><span style="font-size: 15pt"><span style="font-family: Arial"> <br/>
+</span></span></div><div style="text-align: left"><span style="font-size: 15pt"><span style="font-family: Arial">(</span></span></div><a href="https://security.stackexchange.com/questions/101197/message-signing-disabled-dangerous-but-default?newreg=699f6f5412fe4cb4bb0342f00f43ebac">https://security.stackexchange.com/questions/101197/message-signing-disabled-dangerous-but-default?newreg=699f6f5412fe4cb4bb0342f00f43ebac</a><div style="text-align: left"><span style="font-size: 15pt"><span style="font-family: Arial">)<br/>
+</span></span></div><div style="text-align: left"><span style="font-size: 15pt"><span style="font-family: Arial"><br/>
+</span></span></div>-------------------------------STACK EXCHANGE-------------------------------------------<br/>
+<br/>
+So we'll attack smb protocol that's obvious now and first thing we'll do is looking the shareable folders (if we've access) via smbclient.<br/>
+<br/>
+<br/>
+<img src="image 4.png"/><br/>
+well we're not able to connect at all. But sometimes anonymous login is being open and we could connect and enumerate or gather information from shareable files.<br/>
+that's called dead end.<br/>
+<br/>
+So if we were able to connect we can use smbclient \\\\10.10.10.4\\$ADMIN and we wanna connect to that well what is $ADMIN?<br/>
+<br/>
+If we were able to connect smbclient then output would look like that.<br/>
+<br/>
+<img height="362" src="image 5.png" width="550"/><br/>
+<br/>
+The browse list shows other SMB servers with resources to share on the network.<br/>
+<br/>
+well what is $ADMIN?<br/>
+<br/>
+<span style="font-size: 12pt">-----------------------------Administrative Share----------------------------<br/>
+</span><span style="font-size: 10pt">Administrative Shares are hidden network shares created by Windows NT family of operating systems that allow system administrators to have remote access to every disk volume on a network-connected system. These shares may not be permanently deleted but may be disabled. Administrative shares cannot be accessed by users without administrative privileges.<br/>
+<br/>
+SHARE NAMES-------------<br/>
+<br/>
+</span><img height="401" src="image 6.png" width="550"/><br/>
+<br/>
+---------------------------------------<br/>
+<br/>
+<span style="font-size: 14pt">-----------------------------------------------------------------------<br/>
+</span><br/>
+Now a tool that is out there and you may have heard of is called enum4linux. I don't like using this if you like using it that's fine&lt;Heath&gt;. In my case in most instances I've ever tried using it, it has not work, has been broken. So instead we start msfconsole(metasploit) and we are searching smb_version because we need to learn which smb version is being used to exploit. This is important because smb is historically very vulnerable.<br/>
+<br/>
+<img height="173" src="image 7.png" width="700"/><br/>
+<br/>
+What is auxilary modules? Auxilary modules for scanning , enumerations, information gathering. This kind of pre-exploit stage.<br/>
+<br/>
+some smb exploits : wannacry, eternalblue MS 17/0.1.0<br/>
+<br/>
+!!it's very critical to try to detect not only the version but the operating system you're running on because that is important as well.<br/>
+<br/>
+<img height="223" src="image 8.png" width="650"/><br/>
+so if we can set one target then it would be RHOST not RHOSTS. And as we can see here we can specify CIDR notation which is 10.10.10.0/24 and with that we can learn version of smb of every device in that network. Just keep in mind!<br/>
+<br/>
+<img height="270" src="image 9.png" width="600"/><br/>
+<br/>
+Now we are running Windows XP Service Pack 3 and it really doesn't tell us anything else about the SMB version. That's OK. Wecan start with what we know so we'll copy this information then go out the google.<br/>
+<br/>
+<br/>
+<img height="370" src="image 10.png" width="600"/><br/>
+<br/>
+rapid7 is another important website with exploitdb for exploits because rapid7 actually makes metasploit modules.<br/>
+<br/>
+<img height="246" src="image 11.png" width="550"/><br/>
+we don't have to download anything.<br/>
+<br/>
+<img height="355" src="image 12.png" width="600"/><br/>
+there are 72 targets. if we see something like exploit targets<br/>
+<img height="244" src="image 13.png" width="500"/><br/>
+we can see targets with show targets command and set targets with set &lt;target&gt; command.<br/>
+well as we see above there is automatic targeting and we'll do that option, since we don't know exactly which version is running on legacy, we know that this is windows xp sp3 but don't know its language.<br/>
+<img height="344" src="image 14.png" width="500"/><br/>
+well, we're good, as we can see it detected exact version with language and then executed reverse shell and now we've a shell. Although we're not on linux because i tried to execute some linux commands and they didn't work. <br/>
+And then we type getuid and we learned that we are on full authority on that machine NT AUTHORITY\SYSTEM is equal root on linux system.<br/>
+<br/>
+<img src="image 15.png"/><br/>
+<br/>
+now we want to look at sysinfo in order to learn Architecture that whether matches the meterpreter shell. And these matches and this is good this allows us to do a lot. So if we don't know commands in that situation we can type help and learn about the commands.<br/>
+<br/>
+<img height="474" src="image 16.png" width="550"/><br/>
+<img height="436" src="image 17.png" width="550"/><br/>
+<img height="361" src="image 18.png" width="550"/><br/>
+<img src="image 19.png"/><br/>
+<img src="image 20.png"/><br/>
+<br/>
+If we did not have AUTHORITY\SYSTEM we could try to just type getsystem. sometimes it crashes the machine. So if you have a shell on a machine in a network and you're doing a real pentest be careful with this. Perhaps you could ask how sensitive the machine is.<br/>
+<br/>
+We need to submit the flag to htb and for that we are doing some research.<br/>
+<img src="image 21.png"/><br/>
+<img src="image 22.png"/><br/>
+<img src="image 23.png"/><br/>
+we captured the root flag now we'll search for user.txt flag.<br/>
+<br/>
+<img src="image 24.png"/><br/>
+<br/>
+<img src="image 25.png"/><br/>
+<br/>
+We're done.<br/>
+<br/>
+<br/>
+</body></html>

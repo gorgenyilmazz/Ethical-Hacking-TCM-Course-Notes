@@ -1,0 +1,53 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Password Cracking with Hashcat</title>
+</head><body>we're gonna use hashcat for cracking these hashes.<br/>
+<br/>
+firstly create a file and copy paste these hashes to that file.<br/>
+<br/>
+<img height="605" src="image.png" width="700"/><br/>
+<br/>
+<br/>
+<img src="image 3.png"/><br/>
+<br/>
+now we can provide rockyou.txt in /usr/share/wordlists<br/>
+<br/>
+or we can find another ones in google<br/>
+<br/>
+like these;<br/>
+https://github.com/danielmiessler/SecLists<br/>
+https://github.com/initstring/passphrase-wordlist<br/>
+<br/>
+when you're doing hack the box or ctf or something like that usually rockyou.txt will be plenty sufficient. Once you start getting into cracking user passwords then you should start loooking for better wordlists.<br/>
+<br/>
+<img src="image 4.png"/><br/>
+<br/>
+hashcat --help command hash modes section<br/>
+<br/>
+<img src="image 2.png"/><br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<img src="image 6.png"/><br/>
+as you can see we had succeeded<br/>
+<br/>
+now if you come up a error like this;<br/>
+<img src="image 5.png"/><br/>
+<br/>
+because we're in VM device's hardware will be unsufficient so you should always run your password cracking tool regardless of which will be in your base operating system so now we learn how to install hashcat to windows and we gonna try this from windows.<br/>
+<br/>
+https://hashcat.net/hashcat/ download binaries from here<br/>
+<br/>
+then download rockyou.txt to your windows machine it's present in web<br/>
+<br/>
+then copy paste the hash to your windows machine in a file<br/>
+<br/>
+<img src="image 7.png"/><br/>
+<br/>
+-O stands for optimize it speeds up the process.<br/>
+<br/>
+<img src="image 8.png"/><br/>
+we could crack that password in both OS.<br/>
+</body></html>

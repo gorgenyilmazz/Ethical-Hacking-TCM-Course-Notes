@@ -1,0 +1,65 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Walkthrough - Grandpa</title>
+</head><body><img src="image.png"/><br/>
+Ok there is one port open. IIS 6.0 is a incredibly old version. There is 10.0 version recently.<br/>
+Another interresting item is Potentially risky methods. With put potentially we could put a malicious file on the server. <span style="color: #ff0000"><b>And it's not always available to do so even if it is a method that's allowed.<br/>
+</b></span><span style="color: #ff0000"><b><br/>
+<br/>
+<br/>
+</b></span><span style="color: #000000">The other one is trace there is something called cross site tracing.<br/>
+That is when you have a cross site scripting vulnerability and you have the capability of running trace, can lead a cross site tracing it's a much older exploit but when you see potentially risky method of trace show up this is why. TCM &quot;if i were to see this on a web app pentest i'd probably say hey why are you running trace and most people would turn it off &quot;<br/>
+<br/>
+</span><span style="color: #ff0000"><b><br/>
+<span style="color: #000000">okey we might do nikto scan or directory busting etc. But since this version is very old let's google this version for exploits<br/>
+<br/>
+<img src="image 2.png"/><br/>
+<br/>
+rapid7 and exploitdb let's take a look at both.<br/>
+<img src="image 3.png"/><br/>
+<br/>
+okey seems like there are three requirements and two of them is checked<br/>
+<img src="image 4.png"/><br/>
+<br/>
+and OS is likely to be Windows Server 2003 R2 so okey now let's take a look at rapid7 because metasploit is our favourite<br/>
+<br/>
+</span><br/>
+<img src="image 5.png"/><br/>
+<br/>
+<img src="image 6.png"/><br/>
+<br/>
+</b></span><span style="color: #000000">okey now we will set this options<br/>
+<br/>
+</span><img src="image 7.png"/><span style="color: #000000"><br/>
+</span><img src="image 8.png"/><span style="color: #000000"><br/>
+</span><span style="color: #000000">we could get a reverse shell but we don't know who we are.(because we couldn't execute getuid) okey let's look at processes maybe we could find some information about that.<br/>
+<br/>
+<img src="image 9.png"/><br/>
+<br/>
+okey still we don't know who we are but at least we know that we're not authority on the system because when we are authority on the system we could look at into these processes(like 1812, 2920, 3192)<br/>
+<br/>
+Okey now we'll learn a new command new thing and that is migrate command <br/>
+<br/>
+<img src="image 10.png"/><br/>
+<br/>
+</span><span style="color: #000000">(</span><a href="https://security.stackexchange.com/questions/90578/how-does-process-migration-work-in-meterpreter">https://security.stackexchange.com/questions/90578/how-does-process-migration-work-in-meterpreter</a> <span style="color: #000000">)<br/>
+</span><span style="color: #000000"><br/>
+let's migrate to 1860 <br/>
+<br/>
+<img src="image 11.png"/><br/>
+<br/>
+</span><span style="color: #ff0000"><b><br/>
+by searching privesc through suggester is not a realistic view of point by the way. In real world we are looking for active directory privesc.<br/>
+<br/>
+<img src="image 12.png"/><br/>
+<br/>
+let's try these respectively<br/>
+<br/>
+<img src="image 13.png"/><br/>
+<br/>
+it's worked.<br/>
+<br/>
+When there is no user on where you are in terms of session better off migrate the process which have a user<br/>
+<br/>
+</b></span></body></html>

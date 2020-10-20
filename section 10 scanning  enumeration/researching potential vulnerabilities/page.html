@@ -1,0 +1,48 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Researching Potential Vulnerabilities</title>
+</head><body>So for this section we're going to target the low hanging fruit and we will put this in order of how we would attack it. <span style="font-size: 12pt">From juicy ones to less juicy ones.<br/>
+</span><span style="font-size: 12pt"><br/>
+</span><span style="font-size: 10pt">80(apache) - 443(SMB) - mod_ssl 2.8.4 are more juicy than others (SSH and webalizer)<br/>
+<br/>
+so we are going to google and saying mod_ssl 2.8.4 exploit<br/>
+<br/>
+and we find out that there is a exploit called OpenFuck which is a remote buffer overflow exploit.<br/>
+And we need to note the link to the vulnerabilities.<br/>
+<br/>
+</span><img height="371" src="image.png" width="700"/><br/>
+<br/>
+just like that.<br/>
+<br/>
+<img height="258" src="image 2.png" width="700"/><br/>
+<br/>
+Now we did research for apache 1.3.20 with the same way. So there is a site called cve. We can look at it.<br/>
+<br/>
+<img height="624" src="image 3.png" width="600"/><br/>
+<br/>
+we are searching red ones which is more critic vulnerabilities.<br/>
+<br/>
+And as we can see in openssl, the same vulnerabilities openfuck is also a vulnerability for apache 1.3.20<br/>
+<br/>
+<br/>
+if we do the same for samba 2.2.1a we will find these<br/>
+<br/>
+<img height="583" src="image 4.png" width="550"/><br/>
+<br/>
+so rapid7.com is important because they makes metasploit so we can note that site as well.<br/>
+<br/>
+<img height="543" src="image 5.png" width="500"/><br/>
+<br/>
+and some manual perl scripts rather than metasploit.<br/>
+<br/>
+<br/>
+this is the google way to ressearch vulnerabilities and there is another way to do it with a tool called searchsploit. Every time you update the database in your linux machine, exploit database updated and downloaded into your machine as well. So when you have no internet access you can do with this way.<br/>
+<br/>
+And the more spesific you are the worse off you are in searchsploit because this tool use exact string to search vulnerabilities.<br/>
+<br/>
+<img height="653" src="image 6.png" width="650"/><br/>
+<br/>
+and as we can see trans2open pop up. exploits/unix/remote/&lt;file&gt; means this is a exploit for unix and that is a remote code execution.<br/>
+<br/>
+</body></html>

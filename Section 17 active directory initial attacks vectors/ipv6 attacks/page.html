@@ -1,0 +1,20 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>IPv6 Attacks</title>
+</head><body>in previous lessons we used responder and then grab the hashes try to crack them and then if you can't crack the hashes we'll try to relay them and this is just another form of relaying but it's so much reliable because it utililzes IPv6 <br/>
+<br/>
+What is IPv6 Attack?<br/>
+<br/>
+While IPv6 adoption is increasing on the internet, company networks that use IPv6 internally are quite rare. However, most companies are unaware that while IPv6 might not be actively in use, all Windows versions since Windows Vista (including server variants) have IPv6 enabled and prefer it over IPv4. In this blog, an attack is presented that abuses the default IPv6 configuration in Windows networks to spoof DNS replies by acting as a malicious DNS server and redirect traffic to an attacker specified endpoint. In the second phase of this attack, a new method is outlined to exploit the (infamous) Windows Proxy Auto Discovery (WPAD) feature in order to relay credentials and authenticate to various services within the network.<br/>
+<br/>
+<br/>
+if you think about a machine running on a Windows network we typically run an IPv4.<br/>
+Chances are the networks not even utilizing IPv6. If you go look at your computer now and you go into your network adapter properties chances are IPv6 is turned on but you're' utilizing IPv4. But if we're utilizing V4 but v6 is turned on who's doing DNS for v6?<br/>
+And the answer usually is nobody. So what we can do is we can listen for all these v6 messages that come through we'll say hey i'm your DNS and i'm going to spoof the DNS server (as attacker machine.) so send yall your IPv6 traffic to me and then i'll go ahead and just pass that along for you. The issue here is that when this happens we can get authentication to the Domain Controller.<br/>
+<br/>
+there must be an event trigger in this context and these are the reboot that just triggers an event, that event comes through to us. we can use that machine to log into the domain controller and it doesn't have to be an admin and we can get a lot of information out of just that.<br/>
+as you're going to see from the example and we can wait for somebody to maybe log into the network or use their credentials somewhere and that comes to us in the form of NTLM just like responder just like SMB relay. And we do what's called LDAPS relaying. We LDAPS relay over to the domain controller with this NTLM credentials. And if we can login successfully and if it's a domain administrator of the domain controller, we can create account through using mitm6 tool along with ntlmrelayx.<br/>
+<br/>
+this attack still very undetected ver hard to detect and still very very prominent in network.<br/>
+</body></html>

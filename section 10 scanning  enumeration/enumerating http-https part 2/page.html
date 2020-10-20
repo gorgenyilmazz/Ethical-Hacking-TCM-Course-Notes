@@ -1,0 +1,52 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Enumerating HTTP/HTTPS Part 2</title>
+</head><body><span style="color: #ff0000"><span style="font-size: 12pt">Directory Busting Tools<br/>
+<br/>
+</span></span><span style="font-size: 11pt"><span style="color: #000000">dirbuster<br/>
+dirb<br/>
+gobuster<br/>
+<br/>
+we'll use dirbuster.<br/>
+<br/>
+dirbuster&amp;<br/>
+<br/>
+</span></span><img height="690" src="image.png" width="750"/><br/>
+<br/>
+<span style="font-size: 12pt">choosed wordlist is a list of all well-known directory names which will scan. We can type file extensions as how many we want as but then scanning time raise.<br/>
+And we can type in file extension which file will scanned. Now we could start scanning.<br/>
+</span><br/>
+<img height="666" src="image 2.png" width="700"/><br/>
+<br/>
+<span style="font-size: 12pt">we can open with right click test.php for example. So we are trying to find some information disclosure in these files/directories.<br/>
+<br/>
+Another important thing to do is viewing source code.<br/>
+<br/>
+in source code we are looking for any kind of comments any kind of information disclosure. We might be looking for any sort of keys or password or user accounts or anything that might be disclosed in source code that should not be disclosed.<br/>
+<br/>
+Anyway in burpsuite we can do some tricky things we can right click as we are in proxy section and say send to repeater and in repeater we can modify reequests and observe the responses.<br/>
+<br/>
+<br/>
+<img height="555" src="image 3.png" width="550"/><br/>
+<br/>
+in here we change the get request to a post request. <br/>
+<br/>
+and we have information disclosure on server headers as well.<br/>
+<br/>
+<img height="539" src="image 4.png" width="650"/><br/>
+<br/>
+we are not forgetting to note that.<br/>
+<br/>
+<img src="image 5.png"/><br/>
+<br/>
+in usage directory usage.html might be interesting<br/>
+<br/>
+<img height="766" src="image 6.png" width="800"/><br/>
+<br/>
+</span><br/>
+<br/>
+<br/>
+<img src="image 7.png"/><br/>
+<br/>
+</body></html>

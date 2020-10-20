@@ -1,0 +1,136 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Setting Up the Domain Controller </title>
+</head><body><img height="430" src="image.png" width="700"/><br/>
+<br/>
+create new virtual machine then choose your ISO we are doing that for Windows Server 2019 so this should be SERVER_EVAL.ISO like that.<br/>
+<br/>
+<img src="image 2.png"/><br/>
+<br/>
+click next<br/>
+<br/>
+<img src="image 3.png"/><br/>
+<br/>
+and say yes. Then choose location you want to install and say next<br/>
+<br/>
+<img src="image 4.png"/><br/>
+<br/>
+next<br/>
+<br/>
+<img src="image 5.png"/><br/>
+<br/>
+make sure highlighted section is unticked.<br/>
+<br/>
+say finish.<br/>
+<br/>
+<img height="314" src="image 6.png" width="750"/><br/>
+<br/>
+edit virtual machine settings then remove floppy completely.<br/>
+<br/>
+<br/>
+<img src="image 7.png"/><br/>
+<br/>
+everything seems fine.<br/>
+<br/>
+<br/>
+say OK and start machine<br/>
+<br/>
+<br/>
+press a key <br/>
+<br/>
+rest of it just is classic windows installation.<br/>
+<br/>
+<img src="image 8.png"/><br/>
+<br/>
+make sure that is standart evaluation with desktop. and then custom installation <br/>
+<br/>
+<img src="image 9.png"/><br/>
+<br/>
+<br/>
+New<br/>
+<br/>
+<img src="image 10.png"/><br/>
+<br/>
+Apply and say yes.<br/>
+<br/>
+and after completion <br/>
+<img height="545" src="image 11.png" width="650"/><br/>
+<br/>
+wait for that.<br/>
+<br/>
+set your password which is for me it's P@$$w0rd!<br/>
+<br/>
+<br/>
+<img src="image 12.png"/><br/>
+<br/>
+click highlighted.<br/>
+<br/>
+let's install vmware tools because we have issue about full screening.<br/>
+<br/>
+For that click player &gt; manage &gt; install vmware tools <br/>
+<br/>
+then it will displayed a dvd notification click that and run setup and install in complete mode<br/>
+<br/>
+now let's change computer's name and then restart it.<br/>
+<br/>
+we will give name like HYDRA-DC because this is a domain controller<br/>
+<br/>
+type &quot;Computer&quot; to search bar and you'll find necessary field for that.<br/>
+<br/>
+Now let's set up a domain controller through server manager.<br/>
+<br/>
+<br/>
+<img src="image 13.png"/><br/>
+<br/>
+<br/>
+<img src="image 14.png"/><br/>
+<br/>
+<img src="image 15.png"/><br/>
+<br/>
+after that again click next <br/>
+<br/>
+<img src="image 16.png"/><br/>
+<br/>
+in here tick Active Directory Domain Services.<br/>
+<br/>
+after that say &quot;Add Features&quot; then Active Directory Domain Services will be ticked. And say next after that. And then just next next install.<br/>
+<br/>
+After installation <br/>
+<img src="image 17.png"/><br/>
+<br/>
+click here<br/>
+and say &quot;Promote this server to a domain controller.&quot;<br/>
+<br/>
+After that <br/>
+<br/>
+<img src="image 18.png"/><br/>
+<br/>
+<br/>
+after that we want to give a password to this.<br/>
+<br/>
+<img height="416" src="image 19.png" width="550"/><br/>
+<br/>
+next - next and screen where you should be this but we need to wait to load then we can see NETBIOS domain name.<br/>
+<br/>
+<img src="image 20.png"/><br/>
+<br/>
+<img src="image 21.png"/><br/>
+<br/>
+remember ntds.dit file. Go ahead hit next.<br/>
+<img src="image 22.png"/><br/>
+hit next.<br/>
+<img src="image 23.png"/><br/>
+<br/>
+wait to load. And say install. once this is installed it'll reboot the machine.<br/>
+<br/>
+<img src="image 24.png"/><br/>
+<br/>
+we can see that now we have a domain called marvel.<br/>
+<br/>
+<br/>
+<br/>
+Windows server 2019 password: P@$$w0rd<br/>
+<br/>
+<br/>
+</body></html>

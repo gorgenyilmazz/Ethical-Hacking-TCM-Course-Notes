@@ -1,0 +1,26 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Discovering Hosts with SMB Signing Disabled</title>
+</head><body>What is SMB Signing?<br/>
+<br/>
+<span style="font-size: 11pt"><div style="text-align: left"><span style="font-family: minion">It is needed simply because digital signing helps recipients to confirm the origin and authenticity of the incoming packet. In the process, it eliminates any kind of tampering and “man-in-the-middle” kind of attacks. Overall, it makes your packets more secure during transmission.</span></div> <br/>
+<br/>
+</span><img src="image.png"/><span style="font-size: 11pt"><br/>
+</span><span style="font-size: 11pt"><br/>
+this is the required nmap scan for detecting SMB signing.<br/>
+<br/>
+<img src="image 2.png"/><br/>
+this is our domain controller. Message signing is disabled by default on any workstation and enabled and required every single server by default. so as a consequence we won't able to relay to this machine bu if we look at other machines we will see that.<br/>
+<br/>
+<img src="image 3.png"/><br/>
+<br/>
+so we can perform relay attack on these machines ok let's now save these machines ips<br/>
+<br/>
+let's just use peter parker machine. Because remember franck castle is admin on both machines so if we capture the hash with responder and relay to peter parker machine then we will be root on peter parker machine.<br/>
+<br/>
+In a perfect world you would put all this machine.<br/>
+<br/>
+<br/>
+<br/>
+</span></body></html>

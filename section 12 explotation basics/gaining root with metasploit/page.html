@@ -1,0 +1,72 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Gaining Root with Metasploit</title>
+</head><body>This is everything we've been doing the scanning the enumeration even the Linux and the Python.<br/>
+This is all building up to this and now we're ready to exploit.<br/>
+We're going to get out first shell we're going to pop our first shell.<br/>
+<br/>
+We're going to attack SMB here. We're going to do with trans2open vulnerability.<br/>
+<br/>
+<img height="329" src="image.png" width="600"/><br/>
+<br/>
+with metasploit we will search this exploit so first 'msfconsole' then 'search trans2open' commands.<br/>
+<br/>
+<img src="image 2.png"/><br/>
+which one will we use? So we are a good researchers and information gatherers. We've seen that it was running Linux in port 80 so we'll use 1<br/>
+<br/>
+<img src="image 3.png"/><br/>
+<br/>
+<br/>
+all we have to do is set a rhost which is victim or remote host.<br/>
+<br/>
+<img height="461" src="image 4.png" width="650"/><br/>
+<br/>
+with options we verified that rhosts is set.<br/>
+<br/>
+with show targets : Now there are no targets here but as you're going to see later on in the course there are often targets that we have to pick from. Not always is the first choice that's auto selected right for us. But in this instance there's only one choice. So it's the right choice.<br/>
+<br/>
+Now there are two choices, both are going to do same thing which are run and exploit.<br/>
+<br/>
+<img height="441" src="image 5.png" width="800"/><br/>
+<br/>
+it is trying a brute force attack, it's trying different return addresses here. And finally lands the one that work and it says hey i'm going to send this stage. This is always a good sign by the way(sending the stage)<br/>
+Then it says hey i've got this meterpreter session open because our payload has worked. And then this meterpreter session closed reason died. That's not good. So it's keep going through over and over and over and it is just dying. Let's go to options again.<br/>
+<br/>
+<img height="398" src="image 6.png" width="650"/><br/>
+<br/>
+!!You don't see Payload options the first time you do it but you see it the second time because metasploit says hey if your payload is not working maybe the payload is the issue and i'm going to give you payload options this time around.<br/>
+<br/>
+!!We're running a staged payload (look to the forward slash).<br/>
+LHOSTS=(listening hosts or us in short )<br/>
+<br/>
+It's fine for these lessons when you get into actually running this in the wild. All fours is probably going to get you picked up pretty quick because this is a default meterpreter port. So some connection sees or some antivirus or detection software sees 4 4 4 4 open up. <br/>
+This is going to trigger an alarm here.<br/>
+<br/>
+for now with &quot;set payload linux/x86&quot; command we will set another payload. Now we will able to see payload list by pressing two times tab.<br/>
+<br/>
+<img height="432" src="image 7.png" width="550"/><br/>
+<br/>
+<br/>
+so we have bunch of options. we are searching non-staged payloads <br/>
+and we'll use shell_reverse_tcp payload.<br/>
+<br/>
+<br/>
+<img src="image 8.png"/><br/>
+<br/>
+with options we are verifying that we've set payload.<br/>
+<br/>
+<br/>
+<img height="148" src="image 9.png" width="750"/><br/>
+<br/>
+we've got a shell now and this is command shell session 9 opened.<br/>
+<br/>
+<img height="131" src="image 10.png" width="750"/><br/>
+<br/>
+<br/>
+<img src="image 11.png"/><br/>
+<br/>
+<span style="font-size: 15pt"><span style="color: #ff0000">Hands down it's our machine!</span></span><br/>
+<br/>
+<br/>
+</body></html>

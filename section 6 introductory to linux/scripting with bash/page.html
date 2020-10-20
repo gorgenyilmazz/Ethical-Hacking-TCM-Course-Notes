@@ -1,0 +1,31 @@
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Scripting with Bash</title>
+</head><body>In this section we want to detect which ips are available so we will send pings and try to get ips which return response to our pings. This is called ping sweep<br/>
+<br/>
+so to automate this we will write a script.<br/>
+<br/>
+<img src="image 2.png"/><br/>
+-c 1 means that we only want to send one package. Otherwise that will send unlimited package counts until we say stop.<br/>
+<br/>
+<img src="image 3.png"/><br/>
+<br/>
+<img src="image 4.png"/><br/>
+with -d we specify that which character will be a separator for fields and then with -f 4 we take fourth field which is 10.0.2.15: <br/>
+we need to get rid of :<br/>
+<br/>
+so with tr command we obtain that<br/>
+<br/>
+<img src="image 5.png"/><br/>
+<br/>
+<br/>
+ipsweep.sh<br/>
+<br/>
+<img src="image.png"/><br/>
+<br/>
+so in responses there is always a line with &quot;64 bytes&quot;. So as we need to do first thing is grab that line with grep command.<br/>
+to enable to be able to write more than one command we use called pipe (|) <br/>
+<br/>
+This trailing ampersand directs the shell to run the command in the background, that is, it is forked and run in a separate sub-shell, as a job, asynchronously.<br/>
+</body></html>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>title</key><string>Setting Up the Domain Controller </string>
+  <key>nodeid</key><string>7a5aa523-6ced-45c0-9920-5233d73ca724</string>
+  <key>modified_time</key><integer>1601749504</integer>
+  <key>version</key><integer>6</integer>
+  <key>content_type</key><string>text/xhtml+xml</string>
+  <key>created_time</key><integer>1600347890</integer>
+  <key>info_sort_dir</key><integer>0</integer>
+  <key>order</key><integer>2</integer>
+  <key>info_sort</key><string>created_time</string>
+</dict>
+</node>
